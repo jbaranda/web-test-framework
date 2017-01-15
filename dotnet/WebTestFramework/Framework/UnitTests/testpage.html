@@ -1,0 +1,63 @@
+<html>
+<head>
+    <script>
+    $(function(){
+        $('input[name="radioName"]').click(function(){
+            var $radio = $(this);
+
+            // if this was previously checked
+            if ($radio.data('waschecked') == true)
+            {
+                $radio.prop('checked', false);
+                $radio.data('waschecked', false);
+            }
+            else
+                $radio.data('waschecked', true);
+            
+            // remove was checked from other radios
+            $radio.siblings('input[name="rad"]').data('waschecked', false);
+        });
+    });
+    </script>
+</head>
+<body>
+    <form name="tests">
+    <div class="test-text-input">
+        <div><h3>test-text-input:</h3></div>
+        <label for="inputId">Text Input:</label>
+        <input type="text" name="inputName" id="inputId" value="inputValue"/>
+    </div>    
+    <div class="test-select">
+        <div><h3>test-select:</h3></div>
+        <label for="selectId">Select:</label>
+        <select name="selectName" id="selectId" value="selectValue">
+            <option index="1" value="value1">Option 1</option>
+            <option index="2" value="value2">Option 2</option>
+            <option index="3" value="value3">Option 3</option>
+            <option index="4" value="value4">Option 4</option>
+        </select>
+    </div>
+    <div class="test-checkbox-input">
+        <div><h3>test-checkbox-input:</h3></div>
+        <label for="checkboxId">Checkbox Input:</label>
+        <input type="checkbox" name="checkboxName" id="checkboxId" value="false"/>
+    </div>
+    <div class="test-radio-input">
+        <div><h3>test-radioinput:</h3></div>
+        <div class="test-radio">
+            <label for="radioId1">Radio Input:</label>
+            <input type="radio" name="radioName" id="radioId1" value="true" checked="checked" data-waschecked="true"/>
+        </div>
+        <div class="test-radio">
+            <label for="radioId2">Radio Input:</label>
+            <input type="radio" name="radioName" id="radioId2" value="true"/>
+        </div>
+    </div>
+    <div class="test-img">
+        <div><h3>test-img:</h3></div>
+        <label for="imgId">Image:</label>
+        <img src="" alt="imgAlt" name="imgName" id="imgId" value="imgValue"/>
+    </div>   
+    </form>
+</body>
+</html>
