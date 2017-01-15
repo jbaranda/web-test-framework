@@ -24,7 +24,7 @@ namespace Framework.Elements
 
         public void SelectBy(SelectionType type, object toSelect)
         {
-            Log.Info($"{Name}: SelectBy(): {type}, {(toSelect.GetType() == typeof(int) ? Convert.ToInt32(toSelect).ToString() : toSelect.ToString())}");
+            Log.Info($"{Name}: SelectBy(): {type}, {(toSelect is int ? Convert.ToInt32(toSelect).ToString() : toSelect.ToString())}");
             switch(type)
             {
                 case SelectionType.Index:
@@ -36,7 +36,6 @@ namespace Framework.Elements
                 case SelectionType.Value:
                     Control.SelectByValue(toSelect.ToString());
                     break;
-                case SelectionType.All:
                 default:
                     var msg = $"{Name}: Unsupported SelectionType={type} used for Selection";
                     Log.Error(msg);
@@ -46,7 +45,7 @@ namespace Framework.Elements
 
         public void DeselectBy(SelectionType type, object toDeselect)
         {
-            Log.Info($"{Name}: DeselectBy(): {type}, {(toDeselect.GetType() == typeof(int) ? Convert.ToInt32(toDeselect).ToString() : toDeselect.ToString())}");
+            Log.Info($"{Name}: DeselectBy(): {type}, {(toDeselect is int ? Convert.ToInt32(toDeselect).ToString() : toDeselect.ToString())}");
             switch (type)
             {
                 case SelectionType.Index:

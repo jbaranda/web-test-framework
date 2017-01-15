@@ -12,8 +12,8 @@ namespace Framework.PageObjects
         protected WebDriverWait BrowserWait { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }
-        
-        public BasePage(IWebDriver driver)
+
+        protected BasePage(IWebDriver driver)
         {
             Browser = driver;
             BrowserWait = new WebDriverWait(Browser, TimeSpan.FromSeconds(5));
@@ -22,5 +22,10 @@ namespace Framework.PageObjects
         }
 
         public abstract bool IsLoaded();
+
+        public bool IsLoaded(Func<bool> isLoadedCheck)
+        {
+            return isLoadedCheck();
+        }
     }
 }

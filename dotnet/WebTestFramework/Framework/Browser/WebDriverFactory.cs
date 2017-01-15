@@ -15,7 +15,7 @@ namespace Framework.Browser
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private static InternetExplorerOptions ieOptions = new InternetExplorerOptions
+        private static readonly InternetExplorerOptions IeOptions = new InternetExplorerOptions
         {
             IgnoreZoomLevel = true,
             EnsureCleanSession = true,
@@ -38,7 +38,7 @@ namespace Framework.Browser
                 case BrowserType.Firefox:
                     return new FirefoxDriver();
                 case BrowserType.IE:
-                    return new InternetExplorerDriver(driverPath, ieOptions);
+                    return new InternetExplorerDriver(driverPath, IeOptions);
                 case BrowserType.Phantomjs:
                     return new PhantomJSDriver(driverPath);
                 case BrowserType.Safari:
@@ -65,8 +65,8 @@ namespace Framework.Browser
                     capabillities = DesiredCapabilities.Firefox();
                     break;
                 case BrowserType.IE:
-                    ieOptions.AddAdditionalCapability("version", !string.IsNullOrEmpty(version) ? version : "11");
-                    capabillities = ieOptions.ToCapabilities();
+                    IeOptions.AddAdditionalCapability("version", !string.IsNullOrEmpty(version) ? version : "11");
+                    capabillities = IeOptions.ToCapabilities();
                     break;
                 case BrowserType.Phantomjs:
                     capabillities = DesiredCapabilities.PhantomJS();

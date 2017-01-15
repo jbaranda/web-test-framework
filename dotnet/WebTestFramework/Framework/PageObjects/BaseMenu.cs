@@ -9,11 +9,11 @@ namespace Framework.PageObjects
 {
     public abstract class BaseMenu : BaseElement, IMenu
     {
-        protected virtual By menuItemsSelector => By.CssSelector("li a");
-                
-        public BaseMenu(ISearchContext context, By ulSelector, bool applyOutline = false) : base(context, ulSelector, applyOutline) { }
+        protected virtual By MenuItemsSelector => By.CssSelector("li a");
 
-        public List<IWebElement> Items => Context.FindElements(menuItemsSelector).ToList();
+        protected BaseMenu(ISearchContext context, By ulSelector, bool applyOutline = false) : base(context, ulSelector, applyOutline) { }
+
+        public List<IWebElement> Items => Element.FindElements(MenuItemsSelector).ToList();
 
         public IWebElement GetItem(Enum item)
         {

@@ -8,8 +8,8 @@ namespace Framework.Elements
     {
         protected static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private By _selector;
-        private bool _outlineApplied;
+        private readonly By _selector;
+        private readonly bool _outlineApplied;
 
         protected ISearchContext Context { get; set; }
         protected IWebElement Element { get; set; }
@@ -18,7 +18,7 @@ namespace Framework.Elements
         public string Value => Element.GetValue();
         public string Text => Element.GetText();
 
-        public BaseElement(ISearchContext context, By selector, bool applyOutline = false)
+        protected BaseElement(ISearchContext context, By selector, bool applyOutline = false)
         {
             Name = GetType().Name;
             Context = context;
@@ -41,7 +41,7 @@ namespace Framework.Elements
         public bool IsLoaded()
         {
             Log.Info($"{Name}: IsLoaded()");
-            bool loaded = false;
+            bool loaded;
 
             try
             {
@@ -68,7 +68,7 @@ namespace Framework.Elements
 
         public override string ToString()
         {
-            return $"Name={Name}, Selector={_selector.ToString()} Text={Text}, Value={Value}, OutlineApplied={_outlineApplied}";
+            return $"Name={Name}, Selector={_selector} Text={Text}, Value={Value}, OutlineApplied={_outlineApplied}";
         }
     }
 }
