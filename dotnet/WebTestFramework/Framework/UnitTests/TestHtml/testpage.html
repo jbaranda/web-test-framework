@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link rel="stylesheet" href="styles.css">
     <script>
     $(function(){
         $('input[name="radioName"]').click(function(){
@@ -21,7 +22,34 @@
     </script>
 </head>
 <body>
+    <div class="test-nav-menu">
+        <div><h3>test-nav-menu:</h3></div>
+        <div id="navDivId">
+        <label for="navDivId">Nav Menu:</label>
+            <ul>
+                <li>
+                    <a href="pagelink.html">Item1</a>
+                </li>
+                <li>
+                    <a href="pagelink.html">Item2</a>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Item3</a>
+                    <div class="dropdown-content">
+                        <a href="pagelink.html">SubItem 1</a>
+                        <a href="pagelink.html">SubItem 2</a>
+                        <a href="pagelink.html">SubItem 3</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
     <form name="tests">
+    <div class="test-text-field">
+        <div><h3>test-text-field:</h3></div>
+        <div name="textName" id="textId" value="textValue">Text</div>
+        <a name="textLinkName" id="textLinkId" href="pagelink.html">Text Link</a>
+    </div>
     <div class="test-text-input">
         <div><h3>test-text-input:</h3></div>
         <label for="inputId">Text Input:</label>
@@ -42,8 +70,10 @@
         <label for="checkboxId">Checkbox Input:</label>
         <input type="checkbox" name="checkboxName" id="checkboxId" value="false"/>
     </div>
+    </div>
+    <div>
     <div class="test-radio-input">
-        <div><h3>test-radioinput:</h3></div>
+        <div><h3>test-radio-input:</h3></div>
         <div class="test-radio">
             <label for="radioId1">Radio Input:</label>
             <input type="radio" name="radioName" id="radioId1" value="true" checked="checked" data-waschecked="true"/>
@@ -56,8 +86,11 @@
     <div class="test-img">
         <div><h3>test-img:</h3></div>
         <label for="imgId">Image:</label>
-        <img src="" alt="imgAlt" name="imgName" id="imgId" value="imgValue"/>
-    </div>   
+        <img src="image-4x.png" alt="imgAlt" name="imgName" id="imgId" value="imgValue"/>
+        <br>
+        <label for="imgLinkId">Image Link:</label>
+        <a href="pagelink.html"><img src="link-intact-4x.png" alt="imgLinkAlt" name="imgLinkName" id="imgLinkId" value="imgLinkValue"/></a>
+    </div>
     </form>
 </body>
 </html>
