@@ -27,6 +27,14 @@ namespace Framework.Elements
             ((IJavaScriptExecutor)element.GetDriver()).ExecuteScript(apply ? "arguments[0].style.outline='3px groove red'" : "arguments[0].style.outline='none'", element);
         }
 
+        public static string GetName(this IWebElement element)
+        {
+            Log.Debug($"{element.GetType().Name}: GetName()");
+            var val = element.GetAttribute("name");
+            Log.Debug($"{element.GetType().Name}: Name={val}");
+            return val;
+        }
+
         public static string GetValue(this IWebElement element)
         {
             Log.Debug($"{element.GetType().Name}: GetValue()");
@@ -63,9 +71,11 @@ namespace Framework.Elements
         {
             Log.Debug($"{element.GetType().Name}: GetText()");
             string text;
-            if (element.Text != null)
+            if (!string.IsNullOrEmpty(element.Text))
                 text = element.Text;
-            else if (element.GetValue() != null)
+            else if (!string.IsNullOrEmpty(element.GetAttribute("innerText")))
+                text = element.GetAttribute("innerText");
+            else if (!string.IsNullOrEmpty(element.GetValue()))
                 text = element.GetValue();
             else
                 text = string.Empty;

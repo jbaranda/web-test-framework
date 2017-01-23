@@ -13,14 +13,15 @@ namespace Framework.Elements
 
         protected ISearchContext Context { get; set; }
         protected IWebElement Element { get; set; }
-        protected string Name;
+        protected string Type { get; set; }
 
+        public string Name => Element.GetName();
         public string Value => Element.GetValue();
         public string Text => Element.GetText();
 
         protected BaseElement(ISearchContext context, By selector, bool applyOutline = false)
         {
-            Name = GetType().Name;
+            Type = GetType().Name;
             Context = context;
             _selector = selector;
             _outlineApplied = applyOutline;
@@ -38,9 +39,25 @@ namespace Framework.Elements
                 Element.OutlineElement(_outlineApplied);
         }
 
+        protected BaseElement(IWebElement element, bool applyOutline = false)
+        {
+            Type = GetType().Name;
+            Context = element;
+            Element = element;
+
+            if (_outlineApplied)
+                Element.OutlineElement(_outlineApplied);
+        }
+
+        public void Click()
+        {
+            Log.Debug($"{Type}: Click()");
+            Element.Click();
+        }
+
         public bool IsLoaded()
         {
-            Log.Info($"{Name}: IsLoaded()");
+            Log.Info($"{Type}: IsLoaded()");
             bool loaded;
 
             try
@@ -53,22 +70,29 @@ namespace Framework.Elements
                 loaded = false;
             }
 
-            Log.Info($"{Name}: Loaded={loaded}");
+            Log.Info($"{Type}: Loaded={loaded}");
             return loaded;
         }
 
         public bool IsVisible()
         {
-            Log.Info($"{Name}: IsVisible()");
+            Log.Info($"{Type}: IsVisible()");
             var driver = Element.GetDriver();
-            var visible = new WebDriverWait(driver, TimeSpan.FromSeconds(2)).Until(element => ExpectedConditions.ElementIsVisible(_selector) != null);
-            Log.Info($"{Name}: Visible={visible}");
-            return new WebDriverWait(driver, TimeSpan.FromSeconds(2)).Until(element => ExpectedConditions.ElementIsVisible(_selector) != null);
+            bool visible = false;
+            try
+            {
+                new WebDriverWait(driver, TimeSpan.FromSeconds(2)).Until(ExpectedConditions.ElementIsVisible(_selector));
+                visible = true;
+            }
+            catch (WebDriverTimeoutException) { }
+
+            Log.Info($"{Type}: Visible={visible}");
+            return visible;
         }
 
         public override string ToString()
         {
-            return $"Name={Name}, Selector={_selector} Text={Text}, Value={Value}, OutlineApplied={_outlineApplied}";
+            return $"Type={Type}, Selector={_selector}, Name={Name}, Text={Text}, Value={Value}, OutlineApplied={_outlineApplied}";
         }
     }
 }

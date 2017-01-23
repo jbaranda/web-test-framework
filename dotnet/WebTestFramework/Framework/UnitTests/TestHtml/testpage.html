@@ -12,7 +12,7 @@
 <body>
     <div class="container-fluid">
         <div class="test-nav-menu">
-            <div data-toggle="collapse" data-target="#navDivId"><button type="button" class="btn btn-default btn-lg btn-block">test-nav-menu</button></div>
+            <div data-toggle="collapse" data-target="#navDivId"><button type="button" id="nav-menu-btn" class="btn btn-default btn-lg btn-block">test-nav-menu</button></div>
             <div id="navDivId" class="collapse">
                 <nav class="navbar navbar-inverse">
                     <div class="navbar-container">
@@ -40,19 +40,16 @@
         </div>
         <form name="tests">
             <div class="test-text-field">
-                <div data-toggle="collapse" data-target="#textDivContainer"><button type="button" class="btn btn-default btn-lg btn-block">test-text-field</button></div>
+                <div data-toggle="collapse" data-target="#textDivContainer"><button type="button" id="text-field-btn" class="btn btn-default btn-lg btn-block">test-text-field</button></div>
                 <div id="textDivContainer" class="collapse">
-                    <div name="textName" id="textId" value="textValue">
-                        <h3>Text</h3>
-                    </div>
-                    <a name="textLinkName" id="textLinkId" href="pagelink.html">
-                        <h3>Text Link
-                            <h3>
-                    </a>
+                    <h3>
+                        <div name="textName" id="textId" value="textValue">Text</div>
+                    </h3>
+                    <h3><a name="textLinkName" id="textLinkId" href="pagelink.html">Text Link</a></h3>
                 </div>
             </div>
             <div class="test-text-input">
-                <div data-toggle="collapse" data-target="#textInputDivContainer"><button type="button" class="btn btn-default btn-lg btn-block">test-text-input</button></div>
+                <div data-toggle="collapse" data-target="#textInputDivContainer"><button type="button" id="text-input-btn" class="btn btn-default btn-lg btn-block">test-text-input</button></div>
                 <div id="textInputDivContainer" class="collapse">
                     <div class="form-group">
                         <label for="inputId"><h3>Text Input:</h3></label>
@@ -65,7 +62,7 @@
                 </div>
             </div>
             <div class="test-select-input">
-                <div data-toggle="collapse" data-target="#selectDivContainer"><button type="button" class="btn btn-default btn-lg btn-block">test-select-input</button></div>
+                <div data-toggle="collapse" data-target="#selectDivContainer"><button type="button" id="select-input-btn" class="btn btn-default btn-lg btn-block">test-select-input</button></div>
                 <div id="selectDivContainer" class="collapse">
                     <label for="selectId"><h3>Select:</h3></label>
                     <select class="form-control" name="selectName" id="selectId" value="selectValue">
@@ -85,35 +82,35 @@
                 </div>
             </div>
             <div class="test-checkbox-input">
-                <div data-toggle="collapse" data-target="#checkboxDivContainer"><button type="button" class="btn btn-default btn-lg btn-block">test-checkbox-input</button></div>
+                <div data-toggle="collapse" data-target="#checkboxDivContainer"><button type="button" id="checkbox-input-btn" class="btn btn-default btn-lg btn-block">test-checkbox-input</button></div>
                 <div id="checkboxDivContainer" class="collapse">
                     <div class="checkbox">
-                        <label><input type="checkbox" value="">Option 1</label>
+                        <label><input type="checkbox" id="checkboxId1" name="checkboxName1" value="">Option 1</label>
                     </div>
                     <div class="checkbox">
-                        <label><input type="checkbox" value="">Option 2</label>
+                        <label><input type="checkbox" id="checkboxId2" name="checkboxName2" value="">Option 2</label>
                     </div>
                     <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" disabled>Option 3</label>
+                        <label><input type="checkbox" id="checkboxId3" name="checkboxName3" value="" disabled>Option 3</label>
                     </div>
                 </div>
             </div>
             <div class="test-radio-input">
-                <div data-toggle="collapse" data-target="#radioDivContainer"><button type="button" class="btn btn-default btn-lg btn-block">test-radio-input</button></div>
+                <div data-toggle="collapse" data-target="#radioDivContainer"><button type="button" id="radio-input-btn" class="btn btn-default btn-lg btn-block">test-radio-input</button></div>
                 <div id="radioDivContainer" class="collapse">
                     <div class="radio">
-                        <label><input type="radio" name="optradio">Option 1</label>
+                        <label><input type="radio" id="radioId1" name="optradio">Option 1</label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" name="optradio">Option 2</label>
+                        <label><input type="radio" id="radioId2" name="optradio">Option 2</label>
                     </div>
                     <div class="radio disabled">
-                        <label><input type="radio" name="optradio" disabled>Option 3</label>
+                        <label><input type="radio" id="radioId3" name="optradio" disabled>Option 3</label>
                     </div>
                 </div>
             </div>
             <div class="test-img">
-                <div data-toggle="collapse" data-target="#imgDivContainer"><button type="button" class="btn btn-default btn-lg btn-block">test-image</button></div>
+                <div data-toggle="collapse" data-target="#imgDivContainer"><button type="button" id="img-btn" class="btn btn-default btn-lg btn-block">test-image</button></div>
                 <div id="imgDivContainer" class="collapse">
                     <label for="imgId"><h3>Image:</h3></label>
                     <img src="image-4x.png" alt="imgAlt" name="imgName" id="imgId" value="imgValue" />
@@ -123,7 +120,7 @@
                 </div>
             </div>
             <div class="test-table">
-                <div data-toggle="collapse" data-target="#tableDivContainer"><button type="button" class="btn btn-default btn-lg btn-block">test-table</button></div>
+                <div data-toggle="collapse" data-target="#tableDivContainer"><button type="button" id="table-btn" class="btn btn-default btn-lg btn-block">test-table</button></div>
                 <div id="tableDivContainer" class="table-responsive collapse">
                     <table class="table table-striped table-bordered">
                         <tr>
@@ -155,7 +152,7 @@
                 </div>
             </div>
             <div class="test-modal">
-                <div data-toggle="collapse" data-target="#modalDivContainer"><button type="button" class="btn btn-default btn-lg btn-block">test-modal</button></div>
+                <div data-toggle="collapse" data-target="#modalDivContainer"><button type="button" id="modal-btn" class="btn btn-default btn-lg btn-block">test-modal</button></div>
                 <div id="modalDivContainer" class="collapse">
                     <!-- Trigger the modal with a button -->
                     <button type="button" class="btn btn-info btn-lg center-block" data-toggle="modal" data-target="#testModal">Open Modal</button>
@@ -183,7 +180,7 @@
                 </div>
             </div>
             <div class="test-tabmenu-nav">
-                <div data-toggle="collapse" data-target="#tabmenuNavDivContainer"><button type="button" class="btn btn-default btn-lg btn-block">test-tabmenu-nav</button></div>
+                <div data-toggle="collapse" data-target="#tabmenuNavDivContainer"><button type="button" id="tab-menu-btn" class="btn btn-default btn-lg btn-block">test-tabmenu-nav</button></div>
                 <div id="tabmenuNavDivContainer" class="collapse">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#menu1">Menu 1</a></li>

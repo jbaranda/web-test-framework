@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Framework.Constants;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 
@@ -10,8 +11,8 @@ namespace Framework.PageObjects
 
         protected IWebDriver Browser { get; set; }
         protected WebDriverWait BrowserWait { get; set; }
-        public string Title { get; set; }
-        public string Url { get; set; }
+        protected string Title { get; set; }
+        protected string Url { get; set; }
 
         protected BasePage(IWebDriver driver)
         {
@@ -19,13 +20,28 @@ namespace Framework.PageObjects
             BrowserWait = new WebDriverWait(Browser, TimeSpan.FromSeconds(5));
             Title = driver.Title;
             Url = driver.Url;
+
+            if (!IsLoaded())
+            {
+                var msg = $"{GetType().Name} was NOT loaded successfully";
+                Log.Error(msg);
+                throw new NoSuchElementException(msg);
+            }
+
+            Log.Info($"{GetType().Name} has loaded successfully");
         }
 
-        public abstract bool IsLoaded();
-
-        public bool IsLoaded(Func<bool> isLoadedCheck)
+        protected virtual bool IsLoaded()
         {
-            return isLoadedCheck();
+            var readyState = ((IJavaScriptExecutor)Browser).ExecuteScript("return document.readyState");
+            Log.Debug($"{GetType().Name}: document.readyState={readyState}");
+
+            if (readyState.Equals(DocumentReadyState.Complete))
+            {           
+                return true;
+            }
+
+            return false;
         }
     }
 }

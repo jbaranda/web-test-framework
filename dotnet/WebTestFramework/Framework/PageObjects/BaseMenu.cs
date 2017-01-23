@@ -19,7 +19,7 @@ namespace Framework.PageObjects
         {
             if (!Items.Any())
             {
-                var msg = $"{Name}: No Tab Menu Items available";
+                var msg = $"{GetType().Name}: No Tab Menu Items available";
                 Log.Error(msg);
                 throw new NoSuchElementException(msg);
             }
@@ -31,7 +31,7 @@ namespace Framework.PageObjects
 
             catch (ArgumentOutOfRangeException)
             {
-                var msg = $"{Name}: No Tab Menu Item at position={item.GetHashCode()}";
+                var msg = $"{GetType().Name}: No Tab Menu Item at position={item.GetHashCode()}";
                 Log.Error(msg);
                 throw new Exception(msg);
             }
@@ -40,6 +40,11 @@ namespace Framework.PageObjects
         public T NavigateTo<T>(Enum itemToClick)
         {
             return GetItem(itemToClick).ClickTo<T>();
+        }
+
+        public void Select(Enum itemToClick)
+        {
+            GetItem(itemToClick).Click();
         }
     }
 }
