@@ -15,9 +15,9 @@ namespace Framework.Elements
         protected IWebElement Element { get; set; }
         protected string Type { get; set; }
 
-        public string Name => Element.GetName();
+        public string Name => !string.IsNullOrEmpty(Element.GetName()) ? Element.GetName() : Type;
         public string Value => Element.GetValue();
-        public string Text => Element.GetText();
+        public virtual string Text => Element.GetText();
 
         protected BaseElement(ISearchContext context, By selector, bool applyOutline = false)
         {
@@ -57,7 +57,7 @@ namespace Framework.Elements
 
         public bool IsLoaded()
         {
-            Log.Info($"{Type}: IsLoaded()");
+            Log.Debug($"{Type}: IsLoaded()");
             bool loaded;
 
             try
@@ -70,13 +70,13 @@ namespace Framework.Elements
                 loaded = false;
             }
 
-            Log.Info($"{Type}: Loaded={loaded}");
+            Log.Debug($"{Type}: Loaded={loaded}");
             return loaded;
         }
 
         public bool IsVisible()
         {
-            Log.Info($"{Type}: IsVisible()");
+            Log.Debug($"{Type}: IsVisible()");
             var driver = Element.GetDriver();
             bool visible = false;
             try
@@ -86,13 +86,13 @@ namespace Framework.Elements
             }
             catch (WebDriverTimeoutException) { }
 
-            Log.Info($"{Type}: Visible={visible}");
+            Log.Debug($"{Type}: Visible={visible}");
             return visible;
         }
 
         public override string ToString()
         {
-            return $"Type={Type}, Selector={_selector}, Name={Name}, Text={Text}, Value={Value}, OutlineApplied={_outlineApplied}";
+            return $"Type={Type},Selector={_selector},Name={Name},Text={Text},Value={Value},OutlineApplied={_outlineApplied}";
         }
     }
 }

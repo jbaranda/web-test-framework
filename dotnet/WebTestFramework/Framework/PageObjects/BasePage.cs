@@ -9,10 +9,10 @@ namespace Framework.PageObjects
     {
         protected static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        protected IWebDriver Browser { get; set; }
-        protected WebDriverWait BrowserWait { get; set; }
-        protected string Title { get; set; }
-        protected string Url { get; set; }
+        public IWebDriver Browser { get; set; }
+        public WebDriverWait BrowserWait { get; set; }
+        public string Title { get; set; }
+        public string Url { get; set; }
 
         protected BasePage(IWebDriver driver)
         {
@@ -31,7 +31,7 @@ namespace Framework.PageObjects
             Log.Info($"{GetType().Name} has loaded successfully");
         }
 
-        protected virtual bool IsLoaded()
+        public virtual bool IsLoaded()
         {
             var readyState = ((IJavaScriptExecutor)Browser).ExecuteScript("return document.readyState");
             Log.Debug($"{GetType().Name}: document.readyState={readyState}");

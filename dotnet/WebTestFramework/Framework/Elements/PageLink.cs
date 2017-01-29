@@ -10,10 +10,11 @@ namespace Framework.Elements
 
         public PageLink(ISearchContext context, By selector) : base(context, selector) { }
 
-        public T ClickTo<T>()
+        public TPage ClickTo<TPage>()
         {
-            Log.Info($"[EXECUTING] ClickTo<{typeof(T).Name}>()");
-            return (T)Activator.CreateInstance(typeof(T), Context);
+            Log.Info($"{Name}: ClickTo<{typeof(TPage).Name}>()");
+            Element.Click();
+            return (TPage)Activator.CreateInstance(typeof(TPage), Context);
         }
 
         public override string ToString()

@@ -25,7 +25,7 @@ namespace Framework.Browser
 
         public static IWebDriver GetBrowser(BrowserType browser)
         {
-            Log.Info($"[EXECUTING] GetBrowser(): {browser}");
+            Log.Debug($"EXECUTING: GetBrowser(): {browser}");
             var driverPath = Path.GetDirectoryName(new Uri(typeof(WebDriverFactory).Assembly.CodeBase).LocalPath);
             Log.Debug($"Path to Driver binaries: {driverPath}");
 
@@ -50,7 +50,7 @@ namespace Framework.Browser
 
         public static IWebDriver GetRemoteBrowser(Uri gridAddress, BrowserType browser, string version = null)
         {
-            Log.Info($"[EXECUTING] GetRemoteBrowser(): {gridAddress.AbsoluteUri},{browser},{(!string.IsNullOrEmpty(version) ? version : string.Empty)}");
+            Log.Debug($"EXECUTING: GetRemoteBrowser(): {gridAddress.AbsoluteUri},{browser},{(!string.IsNullOrEmpty(version) ? version : string.Empty)}");
             ICapabilities capabillities;
 
             switch (browser)

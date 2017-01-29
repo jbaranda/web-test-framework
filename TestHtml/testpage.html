@@ -34,6 +34,7 @@
                             <li><a href="#"><span class="glyphicon glyphicon-user"></span> User</a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                         </ul>
+                        <div id="navbar-container-displayed" />
                     </div>
                 </nav>
             </div>
@@ -57,7 +58,7 @@
                     </div>
                     <div class="form-group">
                         <label for="textareaId"><h3>Textarea:</h3></label>
-                        <textarea class="form-control" rows="5" id="textareaId"></textarea>
+                        <textarea name="textareaName" class="form-control" rows="5" id="textareaId"></textarea>
                     </div>
                 </div>
             </div>
@@ -65,7 +66,7 @@
                 <div data-toggle="collapse" data-target="#selectDivContainer"><button type="button" id="select-input-btn" class="btn btn-default btn-lg btn-block">test-select-input</button></div>
                 <div id="selectDivContainer" class="collapse">
                     <label for="selectId"><h3>Select:</h3></label>
-                    <select class="form-control" name="selectName" id="selectId" value="selectValue">
+                    <select class="form-control" name="selectName" id="selectId">
                       <option index="1" value="value1">Option 1</option>
                       <option index="2" value="value2">Option 2</option>
                       <option index="3" value="value3">Option 3</option>
@@ -73,7 +74,7 @@
                     </select>
                     <br>
                     <label for="multiSelectId"><h3>Multi Select:</h3> <small>(hold shift to select more than one)</small></label>
-                    <select multiple class="form-control" id="multiSelectId">
+                    <select multiple class="form-control" id="multiSelectId" name="multiSelectName">
                       <option index="1" value="value1">Option 1</option>
                       <option index="2" value="value2">Option 2</option>
                       <option index="3" value="value3">Option 3</option>
@@ -113,10 +114,10 @@
                 <div data-toggle="collapse" data-target="#imgDivContainer"><button type="button" id="img-btn" class="btn btn-default btn-lg btn-block">test-image</button></div>
                 <div id="imgDivContainer" class="collapse">
                     <label for="imgId"><h3>Image:</h3></label>
-                    <img src="image-4x.png" alt="imgAlt" name="imgName" id="imgId" value="imgValue" />
+                    <img src="images/image-4x.png" alt="imgAlt" name="imgName" id="imgId" value="imgValue" />
                     <br>
                     <label for="imgLinkId"><h3>Image Link:</h3></label>
-                    <a href="pagelink.html"><img src="link-intact-4x.png" alt="imgLinkAlt" name="imgLinkName" id="imgLinkId" value="imgLinkValue" /></a>
+                    <a href="pagelink.html"><img src="images/link-intact-4x.png" alt="imgLinkAlt" name="imgLinkName" id="imgLinkId" value="imgLinkValue" /></a>
                 </div>
             </div>
             <div class="test-table">

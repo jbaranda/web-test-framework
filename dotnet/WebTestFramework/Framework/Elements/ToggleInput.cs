@@ -6,35 +6,35 @@ namespace Framework.Elements
     {
         public ToggleInput(ISearchContext context, By selector) : base(context, selector) { }
 
-        public void Check()
+        public void ToggleOn()
         {
-            Log.Info($"{Name}: Check()");
-            if (!IsChecked())
+            Log.Info($"{Name}: ToggleOn()");
+            if (!IsOn())
                 Element.Click();
             else
-                Log.Warn($"{Name}: Element is already checked");
+                Log.Warn($"{Name}: Element is already toggled on/checked");
         }
 
-        public void Uncheck()
+        public void ToggleOff()
         {
-            Log.Info($"{Name}: Uncheck()");
-            if (IsChecked())
+            Log.Info($"{Name}: ToggleOff()");
+            if (IsOn())
                 Element.Click();
             else
-                Log.Warn($"{Name}: Element is already unchecked");
+                Log.Warn($"{Name}: Element is already toggled off/unchecked");
         }
 
-        public bool IsChecked()
+        public bool IsOn()
         {
-            Log.Info($"{Name}: IsChecked()");
+            Log.Info($"{Name}: IsOn()");
             var check = Element.Selected;
-            Log.Info($"{Name}: Checked={check}");
+            Log.Info($"{Name}: Toggled/Checked={check}");
             return check;
         }
 
         public override string ToString()
         {
-            return $"{base.ToString()},Checked={IsChecked()}";
+            return $"{base.ToString()},Toggled/Checked={Element.Selected}";
         }
     }
 }

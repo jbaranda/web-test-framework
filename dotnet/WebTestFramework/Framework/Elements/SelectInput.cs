@@ -1,18 +1,21 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Framework.Elements
 {
     public class SelectInput : BaseElement
     {
-        public enum SelectionType
+        public override string Text => Regex.Replace(Regex.Replace(Element.GetText(), @"\r\n", " "), @"[\s+][^\w]", "");
+
+        public enum ByType
         {
             Index,
             Text,
-            Value,
-            All
+            Value
         }
 
         public SelectElement Control { get; }
@@ -22,49 +25,73 @@ namespace Framework.Elements
             Control = new SelectElement(Element);
         }
 
-        public void SelectBy(SelectionType type, object toSelect)
+        public void SelectBy(ByType type, object toSelect)
         {
             Log.Info($"{Name}: SelectBy(): {type}, {(toSelect is int ? Convert.ToInt32(toSelect).ToString() : toSelect.ToString())}");
             switch(type)
             {
-                case SelectionType.Index:
-                    Control.SelectByIndex(Convert.ToInt32(toSelect));
+                case ByType.Index:
+                    var index = Convert.ToInt32(toSelect);
+                    if (index <= 0)
+                    {
+                        var invalid = $"Invalid Index Value: {index} (Must be Greater than 0)";
+                        Log.Error(invalid);
+                        throw new Exception(invalid);
+                    }                       
+                    Control.SelectByIndex((Convert.ToInt32(toSelect) - 1)); //Zero-Based index
                     break;
-                case SelectionType.Text:
+                case ByType.Text:
                     Control.SelectByText(toSelect.ToString());
                     break;
-                case SelectionType.Value:
+                case ByType.Value:
                     Control.SelectByValue(toSelect.ToString());
                     break;
                 default:
-                    var msg = $"{Name}: Unsupported SelectionType={type} used for Selection";
+                    var msg = $"{Name}: Unsupported Selection Type={type} used for SelectBy";
                     Log.Error(msg);
                     throw new Exception(msg);
             }
         }
 
-        public void DeselectBy(SelectionType type, object toDeselect)
+        public void SelectAll()
+        {
+            Log.Info($"{Name}: SelectAll()");
+            new Actions(Element.GetDriver()).KeyDown(Keys.Shift).Build().Perform();
+            foreach (var option in Element.FindElements(By.TagName("option")))
+            {
+                option.Click();
+            }
+            new Actions(Element.GetDriver()).KeyUp(Keys.Shift).Build().Perform();
+
+            Log.Info($"SelectedOptions: Count={Control.AllSelectedOptions.Count}");
+        }
+
+        public void DeselectBy(ByType type, object toDeselect)
         {
             Log.Info($"{Name}: DeselectBy(): {type}, {(toDeselect is int ? Convert.ToInt32(toDeselect).ToString() : toDeselect.ToString())}");
             switch (type)
             {
-                case SelectionType.Index:
-                    Control.DeselectByIndex(Convert.ToInt32(toDeselect));
+                case ByType.Index:
+                    Control.DeselectByIndex((Convert.ToInt32(toDeselect) - 1));  //Zero-Based index
                     break;
-                case SelectionType.Text:
+                case ByType.Text:
                     Control.DeselectByText(toDeselect.ToString());
                     break;
-                case SelectionType.Value:
+                case ByType.Value:
                     Control.DeselectByValue(toDeselect.ToString());
                     break;
-                case SelectionType.All:
-                    Control.DeselectAll();
-                    break;
                 default:
-                    var msg = $"{Name}: Unsupported SelectionType={type} used for Deselection";
+                    var msg = $"{Name}: Unsupported Selection Type={type} used for DeselectBy";
                     Log.Error(msg);
                     throw new Exception(msg);
             }
+        }
+
+        public void DeselectAll()
+        {
+            Log.Info($"{Name}: SelectAll()");
+            Control.DeselectAll();
+            Log.Info($"SelectedOptions: Count={Control.AllSelectedOptions.Count}");
         }
 
         public string GetSelectedOptionText()
@@ -89,6 +116,26 @@ namespace Framework.Elements
             var foundSelectedOption = Control.AllSelectedOptions.Any(option => option.Text.Equals(textValue) || option.GetValue().Equals(textValue));
             Log.Info($"Option Selected={foundSelectedOption}");
             return foundSelectedOption;
+        }
+
+        public bool AreAllOptionsSelected()
+        {
+            Log.Info($"{Name}: AreAllOptionsSelected()");
+            var optionsCnt = Element.FindElements(By.TagName("option")).Count();
+            var selectedOptionsCnt = Control.AllSelectedOptions.Count();
+            var allOptions = optionsCnt.Equals(selectedOptionsCnt);
+
+            Log.Info($"All Options Selected={allOptions}");
+            return allOptions;
+        }
+
+        public bool AreNoOptionsSelected()
+        {
+            Log.Info($"{Name}: AreNoOptionsSelected()");
+            var noOptions = !Control.AllSelectedOptions.Any();
+
+            Log.Info($"No Options Selected={noOptions}");
+            return noOptions;
         }
     }
 }

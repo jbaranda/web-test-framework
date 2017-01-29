@@ -80,27 +80,19 @@
     <Compile Include="PageObjects\BasePage.cs" />
     <Compile Include="PageObjects\BaseTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTests\BaseElementsTests.cs" />
+    <Compile Include="UnitTests\ImageTests.cs" />
+    <Compile Include="UnitTests\PageLinkTests.cs" />
+    <Compile Include="UnitTests\SelectInputTests.cs" />
+    <Compile Include="UnitTests\TestBase.cs" />
+    <Compile Include="UnitTests\TextFieldTests.cs" />
+    <Compile Include="UnitTests\TextInputTests.cs" />
+    <Compile Include="UnitTests\ToggleInputTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config">
+    <Content Include="app.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="UnitTests\TestHtml\image-4x.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="UnitTests\TestHtml\link-intact-4x.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="UnitTests\TestHtml\pagelink.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="UnitTests\TestHtml\testpage.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
