@@ -9,7 +9,7 @@ namespace Framework.PageObjects
 {
     public abstract class BaseMenu : BaseElement, IMenu
     {
-        protected virtual By MenuItemsSelector => By.CssSelector("li a");
+        protected virtual By MenuItemsSelector => By.XPath("./li/a");
 
         protected BaseMenu(ISearchContext context, By ulSelector, bool applyOutline = false) : base(context, ulSelector, applyOutline) { }
 
@@ -17,6 +17,7 @@ namespace Framework.PageObjects
 
         public IWebElement GetItem(Enum item)
         {
+            Log.Debug($"{GetType().Name}: GetItem(): {item}");
             if (!Items.Any())
             {
                 var msg = $"{GetType().Name}: No Tab Menu Items available";
@@ -26,7 +27,7 @@ namespace Framework.PageObjects
 
             try
             {
-                return Items[item.GetHashCode() - 1];
+                return Items[item.GetHashCode()];
             }
 
             catch (ArgumentOutOfRangeException)
@@ -39,11 +40,13 @@ namespace Framework.PageObjects
 
         public T NavigateTo<T>(Enum itemToClick)
         {
+            Log.Info($"{GetType().Name}: NavigateTo<{typeof(T).Name}>(): {itemToClick}");
             return GetItem(itemToClick).ClickTo<T>();
         }
 
-        public void Select(Enum itemToClick)
+        public void SelectItem(Enum itemToClick)
         {
+            Log.Info($"{GetType().Name}: SelectItem(): {itemToClick}");
             GetItem(itemToClick).Click();
         }
     }

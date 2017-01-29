@@ -73,8 +73,8 @@ namespace Framework.Elements
             string text;
             if (!string.IsNullOrEmpty(element.Text))
                 text = element.Text;
-            else if (!string.IsNullOrEmpty(element.GetAttribute("innerText")))
-                text = element.GetAttribute("innerText");
+            else if (!string.IsNullOrEmpty(element.GetAttribute("textContent")))
+                text = element.GetAttribute("textContent");
             else if (!string.IsNullOrEmpty(element.GetValue()))
                 text = element.GetValue();
             else

@@ -4,6 +4,6 @@ namespace Framework.Interfaces
 {
     interface IMenuExpandable : IMenu
     {
-        void ExpandMenu(Enum item);
+        void ExpandMenu(Enum item, bool hover);
     }
 }

@@ -13,6 +13,7 @@ namespace Framework.UnitTests
         protected BaseBrowser Browser { get; set; }
 
         //Div Buttons Locators
+        protected readonly By NavMenuDivButton = By.Id("nav-menu-btn");
         protected readonly By TextFieldDivButton = By.Id("text-field-btn");
         protected readonly By TextInputDivButton = By.Id("text-input-btn");
         protected readonly By SelectDivButton = By.Id("select-input-btn");
@@ -21,6 +22,7 @@ namespace Framework.UnitTests
         protected readonly By ImageDivButton = By.Id("img-btn");
 
         //Collapsable Divs Locators
+        protected readonly By NavMenuDiv = By.Id("navDivId");
         protected readonly By TextFieldDiv = By.Id("textDivContainer");
         protected readonly By TextInputDiv = By.Id("textInputDivContainer");
         protected readonly By SelectDiv = By.Id("selectDivContainer");
