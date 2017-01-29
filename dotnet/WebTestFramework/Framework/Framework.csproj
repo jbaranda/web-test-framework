@@ -99,6 +99,7 @@
     <Compile Include="UnitTests\TextFieldTests.cs" />
     <Compile Include="UnitTests\TextInputTests.cs" />
     <Compile Include="UnitTests\ToggleInputTests.cs" />
+    <Compile Include="UnitTests\WebDriverExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.config">

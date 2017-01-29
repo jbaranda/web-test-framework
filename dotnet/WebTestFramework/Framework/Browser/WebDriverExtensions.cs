@@ -102,7 +102,6 @@ namespace Framework.Browser
         public static void AddCookie(this IWebDriver browser, string cookieName, string value)
         {
             Log.Info($"{browser.GetType().Name}: AddCookie(): {cookieName}={value}");
-            if (!ContainsCookies(browser)) return;
 
             if (browser.Manage().Cookies.GetCookieNamed(cookieName) != null)
             {
@@ -146,7 +145,7 @@ namespace Framework.Browser
                 throw new Exception(msg);
             }
 
-            if (browser.Manage().Cookies.GetCookieNamed(cookieName) != null)
+            if (browser.Manage().Cookies.GetCookieNamed(cookieName) == null)
             {
                 var msg = $"Cookie={cookieName} NOT found in Browser";
                 Log.Error(msg);
@@ -268,7 +267,7 @@ namespace Framework.Browser
                 throw new Exception(msg);
             }
 
-            var screenshotPath = Path.GetDirectoryName(new Uri(typeof(WebDriverFactory).Assembly.CodeBase).LocalPath) + @"\Screenshots";
+            var screenshotPath = Path.GetDirectoryName(new Uri(typeof(WebDriverExtensions).Assembly.CodeBase).LocalPath) + @"\Screenshots";
 
             var camera = (ITakesScreenshot)browser;
             var screenshot = camera.GetScreenshot();
