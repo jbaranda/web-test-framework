@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Framework.UnitTests
+namespace Framework.UnitTests.PageObjects
 {
     [TestFixture]
     [Parallelizable]

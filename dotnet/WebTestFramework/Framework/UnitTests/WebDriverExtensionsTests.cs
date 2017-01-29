@@ -4,6 +4,8 @@ using System;
 
 namespace Framework.UnitTests
 {
+    [TestFixture]
+    [Parallelizable]
     public class WebDriverExtensionsTests : TestBase
     {
         [Test]

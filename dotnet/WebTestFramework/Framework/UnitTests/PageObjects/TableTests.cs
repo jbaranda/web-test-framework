@@ -1,11 +1,10 @@
 ﻿using Framework.Elements;
 using Framework.Interfaces;
-using Framework.UnitTests.PageObjects;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
 
-namespace Framework.UnitTests
+namespace Framework.UnitTests.PageObjects
 {
     [TestFixture]
     [Parallelizable]

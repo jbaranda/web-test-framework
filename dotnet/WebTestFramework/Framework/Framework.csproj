@@ -83,22 +83,22 @@
     <Compile Include="PageObjects\BasePage.cs" />
     <Compile Include="PageObjects\BaseTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTests\BasePageTests.cs" />
-    <Compile Include="UnitTests\ImageTests.cs" />
-    <Compile Include="UnitTests\NavigationMenuTests.cs" />
-    <Compile Include="UnitTests\PageLinkTests.cs" />
+    <Compile Include="UnitTests\PageObjects\BasePageTests.cs" />
+    <Compile Include="UnitTests\Elements\ImageTests.cs" />
+    <Compile Include="UnitTests\PageObjects\NavigationMenuTests.cs" />
+    <Compile Include="UnitTests\Elements\PageLinkTests.cs" />
     <Compile Include="UnitTests\PageObjects\DivSection.cs" />
     <Compile Include="UnitTests\PageObjects\MainNavMenu.cs" />
     <Compile Include="UnitTests\PageObjects\MainNavSubMenu.cs" />
     <Compile Include="UnitTests\PageObjects\PagelinkPage.cs" />
     <Compile Include="UnitTests\PageObjects\TestHtmlPage.cs" />
     <Compile Include="UnitTests\PageObjects\TestTable.cs" />
-    <Compile Include="UnitTests\SelectInputTests.cs" />
-    <Compile Include="UnitTests\TableTests.cs" />
+    <Compile Include="UnitTests\Elements\SelectInputTests.cs" />
+    <Compile Include="UnitTests\PageObjects\TableTests.cs" />
     <Compile Include="UnitTests\TestBase.cs" />
-    <Compile Include="UnitTests\TextFieldTests.cs" />
-    <Compile Include="UnitTests\TextInputTests.cs" />
-    <Compile Include="UnitTests\ToggleInputTests.cs" />
+    <Compile Include="UnitTests\Elements\TextFieldTests.cs" />
+    <Compile Include="UnitTests\Elements\TextInputTests.cs" />
+    <Compile Include="UnitTests\Elements\ToggleInputTests.cs" />
     <Compile Include="UnitTests\WebDriverExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
