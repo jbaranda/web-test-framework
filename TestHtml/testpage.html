@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Web-Test-Framework: Test HTML Page</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="test-nav-menu">
+            <div data-toggle="collapse" data-target="#navDivId"><button type="button" id="nav-menu-btn" class="btn btn-default btn-lg btn-block">test-nav-menu</button></div>
+            <div id="navDivId" class="collapse">
+                <nav class="navbar navbar-inverse">
+                    <div class="navbar-container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>                        
+                            </button>
+                            <a class="navbar-brand" href="#">Home</a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="myNavbar">
+                            <ul id="mainNavId" class="nav navbar-nav">
+                                <li class="active"><a href="#">Item 1</a></li>
+                                <li><a href="pagelink.html">Item 2</a></li>
+                                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Item 3 <span class="caret"></span></a>
+                                    <ul id="subNavId" class="dropdown-menu">
+                                        <li><a href="pagelink.html">SubItem 1</a></li>
+                                        <li><a href="pagelink.html">SubItem 2</a></li>
+                                        <li><a href="pagelink.html">SubItem 3</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul id="rightNavId" class="nav navbar-nav navbar-right">
+                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> User</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <form name="tests">
+            <div class="test-text-field">
+                <div data-toggle="collapse" data-target="#textDivContainer"><button type="button" id="text-field-btn" class="btn btn-default btn-lg btn-block">test-text-field</button></div>
+                <div id="textDivContainer" class="collapse">
+                    <h3>
+                        <div name="textName" id="textId" value="textValue">Text</div>
+                    </h3>
+                    <h3><a name="textLinkName" id="textLinkId" href="pagelink.html">Text Link</a></h3>
+                </div>
+            </div>
+            <div class="test-text-input">
+                <div data-toggle="collapse" data-target="#textInputDivContainer"><button type="button" id="text-input-btn" class="btn btn-default btn-lg btn-block">test-text-input</button></div>
+                <div id="textInputDivContainer" class="collapse">
+                    <div class="form-group">
+                        <label for="inputId"><h3>Text Input:</h3></label>
+                        <input type="text" class="form-control" name="inputName" id="inputId" value="inputValue" />
+                    </div>
+                    <div class="form-group">
+                        <label for="textareaId"><h3>Textarea:</h3></label>
+                        <textarea name="textareaName" class="form-control" rows="5" id="textareaId"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="test-select-input">
+                <div data-toggle="collapse" data-target="#selectDivContainer"><button type="button" id="select-input-btn" class="btn btn-default btn-lg btn-block">test-select-input</button></div>
+                <div id="selectDivContainer" class="collapse">
+                    <label for="selectId"><h3>Select:</h3></label>
+                    <select class="form-control" name="selectName" id="selectId">
+                      <option index="1" value="value1">Option 1</option>
+                      <option index="2" value="value2">Option 2</option>
+                      <option index="3" value="value3">Option 3</option>
+                      <option index="4" value="value4">Option 4</option>
+                    </select>
+                    <br>
+                    <label for="multiSelectId"><h3>Multi Select:</h3> <small>(hold shift to select more than one)</small></label>
+                    <select multiple class="form-control" id="multiSelectId" name="multiSelectName">
+                      <option index="1" value="value1">Option 1</option>
+                      <option index="2" value="value2">Option 2</option>
+                      <option index="3" value="value3">Option 3</option>
+                      <option index="4" value="value4">Option 4</option>
+                    </select>
+                </div>
+            </div>
+            <div class="test-checkbox-input">
+                <div data-toggle="collapse" data-target="#checkboxDivContainer"><button type="button" id="checkbox-input-btn" class="btn btn-default btn-lg btn-block">test-checkbox-input</button></div>
+                <div id="checkboxDivContainer" class="collapse">
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="checkboxId1" name="checkboxName1" value="">Option 1</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="checkboxId2" name="checkboxName2" value="">Option 2</label>
+                    </div>
+                    <div class="checkbox disabled">
+                        <label><input type="checkbox" id="checkboxId3" name="checkboxName3" value="" disabled>Option 3</label>
+                    </div>
+                </div>
+            </div>
+            <div class="test-radio-input">
+                <div data-toggle="collapse" data-target="#radioDivContainer"><button type="button" id="radio-input-btn" class="btn btn-default btn-lg btn-block">test-radio-input</button></div>
+                <div id="radioDivContainer" class="collapse">
+                    <div class="radio">
+                        <label><input type="radio" id="radioId1" name="optradio">Option 1</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="radioId2" name="optradio">Option 2</label>
+                    </div>
+                    <div class="radio disabled">
+                        <label><input type="radio" id="radioId3" name="optradio" disabled>Option 3</label>
+                    </div>
+                </div>
+            </div>
+            <div class="test-img">
+                <div data-toggle="collapse" data-target="#imgDivContainer"><button type="button" id="img-btn" class="btn btn-default btn-lg btn-block">test-image</button></div>
+                <div id="imgDivContainer" class="collapse">
+                    <label for="imgId"><h3>Image:</h3></label>
+                    <img src="images/image-4x.png" alt="imgAlt" name="imgName" id="imgId" value="imgValue" />
+                    <br>
+                    <label for="imgLinkId"><h3>Image Link:</h3></label>
+                    <a href="pagelink.html"><img src="images/link-intact-4x.png" alt="imgLinkAlt" name="imgLinkName" id="imgLinkId" value="imgLinkValue" /></a>
+                </div>
+            </div>
+            <div class="test-table">
+                <div data-toggle="collapse" data-target="#tableDivContainer"><button type="button" id="table-btn" class="btn btn-default btn-lg btn-block">test-table</button></div>
+                <div id="tableDivContainer" class="table-responsive collapse">
+                    <table id="tableId" class="table table-striped table-bordered">
+                        <tr>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <th>Header 3</th>
+                        </tr>
+                        <tr>
+                            <td>Row 1 - Item 1</td>
+                            <td>Row 1 - Item 2</td>
+                            <td>Row 1 - Item 3</td>
+                        </tr>
+                        <tr>
+                            <td>Row 2 - Item 1</td>
+                            <td>Row 2 - Item 2</td>
+                            <td>Row 2 - Item 3</td>
+                        </tr>
+                        <tr>
+                            <td>Row 3 - Item 1</td>
+                            <td>Row 3 - Item 2</td>
+                            <td>SAME VALUE</td>
+                        </tr>
+                        <tr>
+                            <td>Row 4 - Item 1</td>
+                            <td>Row 4 - Item 2</td>
+                            <td>SAME VALUE</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="test-modal">
+                <div data-toggle="collapse" data-target="#modalDivContainer"><button type="button" id="modal-btn" class="btn btn-default btn-lg btn-block">test-modal</button></div>
+                <div id="modalDivContainer" class="collapse">
+                    <!-- Trigger the modal with a button -->
+                    <button type="button" class="btn btn-info btn-lg center-block" data-toggle="modal" data-target="#testModal">Open Modal</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="testModal" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Modal Header</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Modal Body Text</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="test-tabmenu-nav">
+                <div data-toggle="collapse" data-target="#tabmenuNavDivContainer"><button type="button" id="tab-menu-btn" class="btn btn-default btn-lg btn-block">test-tabmenu-nav</button></div>
+                <div id="tabmenuNavDivContainer" class="collapse">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+                        <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+                        <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
+                        <li><a data-toggle="tab" href="#menu4">Menu 4</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="menu1" class="tab-pane fade in active">
+                            <h3>Menu 1</h3>
+                            <p>Menu 1 Paragraph Text</p>
+                        </div>
+                        <div id="menu2" class="tab-pane fade">
+                            <h3>Menu 2</h3>
+                            <p>Menu 2 Paragraph Text</p>
+                        </div>
+                        <div id="menu3" class="tab-pane fade">
+                            <h3>Menu 3</h3>
+                            <p>Menu 3 Paragraph Text</p>
+                        </div>
+                        <div id="menu4" class="tab-pane fade">
+                            <h3>Menu 4</h3>
+                            <p>Menu 4 Paragraph Text</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
