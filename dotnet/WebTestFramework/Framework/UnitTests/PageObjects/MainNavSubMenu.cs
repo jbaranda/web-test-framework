@@ -7,16 +7,16 @@ namespace Framework.UnitTests.PageObjects
     {
         public enum Menu
         {
-            SubItem1,
-            SubItem2,
-            SubItem3
+            SubItem1 = 1,
+            SubItem2 = 2,
+            SubItem3 = 3
         }
 
         public MainNavSubMenu(IWebDriver browser, By selector) : base(browser, selector) { }
 
         public override string ToString()
         {
-            return $"{GetType().Name}: {Menu.SubItem1},{Menu.SubItem2},{Menu.SubItem3}";
+            return $"{base.ToString()},Menu: [{Menu.SubItem1},{Menu.SubItem2},{Menu.SubItem3}]";
         }
     }
 }

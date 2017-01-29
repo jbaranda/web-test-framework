@@ -66,7 +66,7 @@ namespace Framework.UnitTests
             Assert.That(pagelinkPage.Title, Is.EqualTo("Web-Test-Framework: Pagelink Page"));
             Assert.That(pagelinkPage.SuccessText.IsVisible(), Is.True);
 
-            pagelinkPage.ReturnLink.Click();
+            page = pagelinkPage.ReturnLink.ClickTo<TestHtmlPage>();
 
             Log.Info($"Element Under Test: {page.ImageLink}");
             page.ExpandDiv(DivSection.TestImage, true);
@@ -76,7 +76,7 @@ namespace Framework.UnitTests
             Assert.That(pagelinkPage.Title, Is.EqualTo("Web-Test-Framework: Pagelink Page"));
             Assert.That(pagelinkPage.SuccessText.IsVisible(), Is.True);
 
-            pagelinkPage.ReturnLink.Click();
+            page = pagelinkPage.ReturnLink.ClickTo<TestHtmlPage>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Framework.Browser;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 using System;
 
@@ -24,7 +25,7 @@ namespace Framework.Elements
         public static void OutlineElement(this IWebElement element, bool apply)
         {
             Log.Debug($"{element.GetType().Name}: OutlineElement(): {apply}");
-            ((IJavaScriptExecutor)element.GetDriver()).ExecuteScript(apply ? "arguments[0].style.outline='3px groove red'" : "arguments[0].style.outline='none'", element);
+            ((IJavaScriptExecutor)element.GetDriver()).ExecuteScript(apply ? $"arguments[0].style.outline='3px groove {WebDriverSettings.OutlineColor}'" : "arguments[0].style.outline='none'", element);
         }
 
         public static string GetName(this IWebElement element)

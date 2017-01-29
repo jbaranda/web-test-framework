@@ -10,11 +10,11 @@ namespace Framework.Browser
         public IWebDriver Driver { get; set; }
         public WebDriverWait DriverWait { get; set; }
 
-        public BaseBrowser(IWebDriver driver, int implicitWaitSeconds = 2, int driverWaitSeconds = 5)
+        public BaseBrowser(IWebDriver driver)
         {
             Driver = driver;
-            Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(implicitWaitSeconds));
-            DriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(driverWaitSeconds));
+            Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(WebDriverSettings.ImplicitWait));
+            DriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(WebDriverSettings.ExplicitWait));
         }
     }
 }

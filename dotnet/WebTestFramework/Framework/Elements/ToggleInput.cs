@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Framework.Browser;
+using OpenQA.Selenium;
 
 namespace Framework.Elements
 {
@@ -9,19 +10,31 @@ namespace Framework.Elements
         public void ToggleOn()
         {
             Log.Info($"{Name}: ToggleOn()");
+            if (WebDriverSettings.ApplyOutline)
+                Outline(true);
+
             if (!IsOn())
                 Element.Click();
             else
                 Log.Warn($"{Name}: Element is already toggled on/checked");
+
+            if (OutlineApplied)
+                Outline(false);
         }
 
         public void ToggleOff()
         {
             Log.Info($"{Name}: ToggleOff()");
+            if (WebDriverSettings.ApplyOutline)
+                Outline(true);
+
             if (IsOn())
                 Element.Click();
             else
                 Log.Warn($"{Name}: Element is already toggled off/unchecked");
+
+            if (OutlineApplied)
+                Outline(false);
         }
 
         public bool IsOn()

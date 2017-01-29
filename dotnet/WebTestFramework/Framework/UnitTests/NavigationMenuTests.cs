@@ -60,7 +60,7 @@ namespace Framework.UnitTests
             Assert.That(pagelinkpage.Title, Is.EqualTo("Web-Test-Framework: Pagelink Page"));
             Assert.That(pagelinkpage.SuccessText.IsVisible(), Is.True);
 
-            pagelinkpage.ReturnLink.Click();
+            page = pagelinkpage.ReturnLink.ClickTo<TestHtmlPage>();
 
             Log.Info($"PageObject Under Test: {_subNavMenu}");
             page.ExpandDiv(DivSection.TestNavMenu, true);
@@ -70,7 +70,7 @@ namespace Framework.UnitTests
             Assert.That(pagelinkpage.Title, Is.EqualTo("Web-Test-Framework: Pagelink Page"));
             Assert.That(pagelinkpage.SuccessText.IsVisible(), Is.True);
 
-            pagelinkpage.ReturnLink.Click();
+            page = pagelinkpage.ReturnLink.ClickTo<TestHtmlPage>();
         }
     }
 }

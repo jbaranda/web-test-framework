@@ -11,7 +11,7 @@ namespace Framework.UnitTests
         protected static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         
         protected BaseBrowser Browser { get; set; }
-        protected TestHtmlPage page => new TestHtmlPage(Browser.Driver);
+        protected TestHtmlPage page { get; set; }
 
         protected static string GetTestHtmlFolderPath()
         {
@@ -28,6 +28,7 @@ namespace Framework.UnitTests
             Browser = new BaseBrowser(WebDriverFactory.GetBrowser(BrowserType.Chrome));
             Browser.Driver.Navigate().GoToUrl($"{GetTestHtmlFolderPath()}/TestHtml/testpage.html");
             Log.Info($"Browser URL={Browser.Driver.Url}");
+            page = new TestHtmlPage(Browser.Driver);
         }
 
         [SetUp]

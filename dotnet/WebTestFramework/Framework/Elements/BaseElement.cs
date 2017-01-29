@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Framework.Browser;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 
@@ -9,22 +10,22 @@ namespace Framework.Elements
         protected static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly By _selector;
-        private readonly bool _outlineApplied;
 
         protected ISearchContext Context { get; set; }
         protected IWebElement Element { get; set; }
         protected string Type { get; set; }
+        protected bool OutlineApplied { get; set; }
 
         public string Name => !string.IsNullOrEmpty(Element.GetName()) ? Element.GetName() : Type;
         public string Value => Element.GetValue();
         public virtual string Text => Element.GetText();
 
-        protected BaseElement(ISearchContext context, By selector, bool applyOutline = false)
+        protected BaseElement(ISearchContext context, By selector)
         {
             Type = GetType().Name;
             Context = context;
+            OutlineApplied = false;
             _selector = selector;
-            _outlineApplied = applyOutline;
 
             if (!IsLoaded())
             {
@@ -34,24 +35,15 @@ namespace Framework.Elements
             }
 
             Element = Context.FindElement(_selector);
-
-            if (_outlineApplied)
-                Element.OutlineElement(_outlineApplied);
-        }
-
-        protected BaseElement(IWebElement element, bool applyOutline = false)
-        {
-            Type = GetType().Name;
-            Context = element;
-            Element = element;
-
-            if (_outlineApplied)
-                Element.OutlineElement(_outlineApplied);
         }
 
         public void Click()
         {
             Log.Debug($"{Type}: Click()");
+
+            if (WebDriverSettings.ApplyOutline)
+                Outline(true);
+
             Element.Click();
         }
 
@@ -90,9 +82,25 @@ namespace Framework.Elements
             return visible;
         }
 
+        public void Outline(bool apply)
+        {
+            if (apply && !OutlineApplied)
+            {
+                Element.OutlineElement(apply);
+                OutlineApplied = true;
+                return;
+            }
+
+            if (!apply && OutlineApplied)
+            {
+                Element.OutlineElement(apply);
+                OutlineApplied = false;
+            }
+        }
+
         public override string ToString()
         {
-            return $"Type={Type},Selector={_selector},Name={Name},Text={Text},Value={Value},OutlineApplied={_outlineApplied}";
+            return $"Type={Type},Selector={_selector},Name={Name},Text={Text},Value={Value},OutlineApplied={OutlineApplied}";
         }
     }
 }

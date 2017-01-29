@@ -50,27 +50,6 @@ namespace Framework.UnitTests.PageObjects
 
         public TestHtmlPage(IWebDriver browser) : base(browser) { }
 
-        public void ExpandDiv(bool expand, By expandButtonSelector, By divContainerSelector)
-        {
-            var button = Browser.FindElement(expandButtonSelector);
-            var div = Browser.FindElement(divContainerSelector);
-
-            if (!expand && div.Displayed)
-            {
-                button.Click();
-                BrowserWait.Until(driver => div.GetAttribute("class").Equals("collapse"));
-                BrowserWait.Until(driver => !div.Displayed);
-                return;
-            }
-
-            if (expand && !div.Displayed)
-            {
-                button.Click();
-                BrowserWait.Until(driver => div.GetAttribute("class").Equals("collapse in"));
-                BrowserWait.Until(driver => div.Displayed);
-            }
-        }
-
         public void ExpandDiv(DivSection section, bool expand)
         {
             Log.Info($"{GetType().Name}: ExpandDiv(): {section},{expand}");
@@ -129,7 +108,7 @@ namespace Framework.UnitTests.PageObjects
             if (!expand && div.Displayed)
             {
                 button.Click();
-                BrowserWait.Until(driver => div.GetAttribute("class").Equals("collapse"));
+                BrowserWait.Until(driver => div.GetAttribute("class").Contains("collapse"));
                 BrowserWait.Until(driver => !div.Displayed);
                 return;
             }
@@ -137,7 +116,7 @@ namespace Framework.UnitTests.PageObjects
             if (expand && !div.Displayed)
             {
                 button.Click();
-                BrowserWait.Until(driver => div.GetAttribute("class").Equals("collapse in"));
+                BrowserWait.Until(driver => div.GetAttribute("class").Contains("collapse in"));
                 BrowserWait.Until(driver => div.Displayed);
             }
         }

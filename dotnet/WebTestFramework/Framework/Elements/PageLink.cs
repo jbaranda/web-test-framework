@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using System;
 using Framework.Interfaces;
+using Framework.Browser;
 
 namespace Framework.Elements
 {
@@ -13,6 +14,9 @@ namespace Framework.Elements
         public TPage ClickTo<TPage>()
         {
             Log.Info($"{Name}: ClickTo<{typeof(TPage).Name}>()");
+            if (WebDriverSettings.ApplyOutline)
+                Outline(true);
+
             Element.Click();
             return (TPage)Activator.CreateInstance(typeof(TPage), Context);
         }

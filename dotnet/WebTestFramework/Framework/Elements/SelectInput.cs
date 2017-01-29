@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Framework.Browser;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -28,7 +29,10 @@ namespace Framework.Elements
         public void SelectBy(ByType type, object toSelect)
         {
             Log.Info($"{Name}: SelectBy(): {type}, {(toSelect is int ? Convert.ToInt32(toSelect).ToString() : toSelect.ToString())}");
-            switch(type)
+            if (WebDriverSettings.ApplyOutline)
+                Outline(true);
+
+            switch (type)
             {
                 case ByType.Index:
                     var index = Convert.ToInt32(toSelect);
@@ -51,11 +55,17 @@ namespace Framework.Elements
                     Log.Error(msg);
                     throw new Exception(msg);
             }
+
+            if (OutlineApplied)
+                Outline(false);
         }
 
         public void SelectAll()
         {
             Log.Info($"{Name}: SelectAll()");
+            if (WebDriverSettings.ApplyOutline)
+                Outline(true);
+
             new Actions(Element.GetDriver()).KeyDown(Keys.Shift).Build().Perform();
             foreach (var option in Element.FindElements(By.TagName("option")))
             {
@@ -64,11 +74,18 @@ namespace Framework.Elements
             new Actions(Element.GetDriver()).KeyUp(Keys.Shift).Build().Perform();
 
             Log.Info($"SelectedOptions: Count={Control.AllSelectedOptions.Count}");
+
+            if (OutlineApplied)
+                Outline(false);
+
         }
 
         public void DeselectBy(ByType type, object toDeselect)
         {
             Log.Info($"{Name}: DeselectBy(): {type}, {(toDeselect is int ? Convert.ToInt32(toDeselect).ToString() : toDeselect.ToString())}");
+            if (WebDriverSettings.ApplyOutline)
+                Outline(true);
+
             switch (type)
             {
                 case ByType.Index:
@@ -85,13 +102,22 @@ namespace Framework.Elements
                     Log.Error(msg);
                     throw new Exception(msg);
             }
+
+            if (OutlineApplied)
+                Outline(false);
         }
 
         public void DeselectAll()
         {
             Log.Info($"{Name}: SelectAll()");
+            if (WebDriverSettings.ApplyOutline)
+                Outline(true);
+
             Control.DeselectAll();
             Log.Info($"SelectedOptions: Count={Control.AllSelectedOptions.Count}");
+
+            if (OutlineApplied)
+                Outline(false);
         }
 
         public string GetSelectedOptionText()

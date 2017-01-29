@@ -41,6 +41,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
@@ -63,6 +64,7 @@
     <Compile Include="Browser\BrowserType.cs" />
     <Compile Include="Browser\WebDriverExtensions.cs" />
     <Compile Include="Browser\WebDriverFactory.cs" />
+    <Compile Include="Browser\WebDriverSettings.cs" />
     <Compile Include="Constants\DocumentReadyState.cs" />
     <Compile Include="Elements\WebElementExtensions.cs" />
     <Compile Include="Elements\BaseElement.cs" />
@@ -90,7 +92,9 @@
     <Compile Include="UnitTests\PageObjects\MainNavSubMenu.cs" />
     <Compile Include="UnitTests\PageObjects\PagelinkPage.cs" />
     <Compile Include="UnitTests\PageObjects\TestHtmlPage.cs" />
+    <Compile Include="UnitTests\PageObjects\TestTable.cs" />
     <Compile Include="UnitTests\SelectInputTests.cs" />
+    <Compile Include="UnitTests\TableTests.cs" />
     <Compile Include="UnitTests\TestBase.cs" />
     <Compile Include="UnitTests\TextFieldTests.cs" />
     <Compile Include="UnitTests\TextInputTests.cs" />

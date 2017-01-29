@@ -1,4 +1,5 @@
-﻿using Framework.Elements;
+﻿using Framework.Browser;
+using Framework.Elements;
 using Framework.Interfaces;
 using OpenQA.Selenium;
 using System;
@@ -11,7 +12,7 @@ namespace Framework.PageObjects
     {
         protected virtual By MenuItemsSelector => By.XPath("./li/a");
 
-        protected BaseMenu(ISearchContext context, By ulSelector, bool applyOutline = false) : base(context, ulSelector, applyOutline) { }
+        protected BaseMenu(ISearchContext context, By ulSelector) : base(context, ulSelector) { }
 
         public List<IWebElement> Items => Element.FindElements(MenuItemsSelector).ToList();
 
@@ -27,7 +28,7 @@ namespace Framework.PageObjects
 
             try
             {
-                return Items[item.GetHashCode()];
+                return Items[item.GetHashCode() - 1];
             }
 
             catch (ArgumentOutOfRangeException)
@@ -41,13 +42,23 @@ namespace Framework.PageObjects
         public T NavigateTo<T>(Enum itemToClick)
         {
             Log.Info($"{GetType().Name}: NavigateTo<{typeof(T).Name}>(): {itemToClick}");
-            return GetItem(itemToClick).ClickTo<T>();
+            var item = GetItem(itemToClick);
+
+            if (WebDriverSettings.ApplyOutline)
+                item.OutlineElement(true);
+
+            return item.ClickTo<T>();
         }
 
         public void SelectItem(Enum itemToClick)
         {
             Log.Info($"{GetType().Name}: SelectItem(): {itemToClick}");
-            GetItem(itemToClick).Click();
+            var item = GetItem(itemToClick);
+
+            if (WebDriverSettings.ApplyOutline)
+                item.OutlineElement(true);
+
+            item.Click();
         }
     }
 }
