@@ -87,6 +87,7 @@
     <Compile Include="UnitTests\PageObjects\MainNavMenu.cs" />
     <Compile Include="UnitTests\PageObjects\MainNavSubMenu.cs" />
     <Compile Include="UnitTests\PageObjects\PagelinkPage.cs" />
+    <Compile Include="UnitTests\PageObjects\TestHtmlPage.cs" />
     <Compile Include="UnitTests\SelectInputTests.cs" />
     <Compile Include="UnitTests\TestBase.cs" />
     <Compile Include="UnitTests\TextFieldTests.cs" />

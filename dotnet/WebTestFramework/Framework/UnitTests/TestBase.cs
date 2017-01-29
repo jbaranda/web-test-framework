@@ -1,4 +1,5 @@
 ﻿using Framework.Browser;
+using Framework.UnitTests.PageObjects;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
@@ -11,6 +12,7 @@ namespace Framework.UnitTests
         protected static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         
         protected BaseBrowser Browser { get; set; }
+        protected TestHtmlPage page => new TestHtmlPage(Browser.Driver);
 
         //Div Buttons Locators
         protected readonly By NavMenuDivButton = By.Id("nav-menu-btn");
