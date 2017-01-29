@@ -43,5 +43,10 @@ namespace Framework.PageObjects
 
             return false;
         }
+
+        public override string ToString()
+        {
+            return $"{GetType().Name}: Title={Title},Url={Url}";
+        }
     }
 }

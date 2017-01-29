@@ -1,7 +1,6 @@
 ﻿using Framework.Elements;
 using Framework.UnitTests.PageObjects;
 using NUnit.Framework;
-using OpenQA.Selenium;
 
 namespace Framework.UnitTests
 {
@@ -9,40 +8,34 @@ namespace Framework.UnitTests
     [Parallelizable]
     public class PageLinkTests : TestBase
     {
-        private const string PagelinkHref = "pagelink.html";
-        private readonly By _pagelinkLocator = By.Id("textLinkId");
-        private readonly By _imageLinkLocator = By.Id("imgLinkId");
-        public PageLink pageLink => new PageLink(Browser.Driver, _pagelinkLocator);
-        public Image imageLink => new Image(Browser.Driver, _imageLinkLocator);
-
         [Test]
         public void NameTest()
         {
-            Log.Info($"Element Under Test: {pageLink}");
-            Assert.That(pageLink.Name, Is.EqualTo("textLinkName"));
+            Log.Info($"Element Under Test: {page.PageLink}");
+            Assert.That(page.PageLink.Name, Is.EqualTo("textLinkName"));
         }
 
         [Test]
         public void ValueTest()
         {
-            Log.Info($"Element Under Test: {pageLink}");
-            Assert.That(pageLink.Value, Is.Null);
+            Log.Info($"Element Under Test: {page.PageLink}");
+            Assert.That(page.PageLink.Value, Is.Null);
         }
 
         [Test]
         public void TextTest()
         {
-            Log.Info($"Element Under Test: {pageLink}");
-            Assert.That(pageLink.Text, Is.EqualTo("Text Link"));
+            Log.Info($"Element Under Test: {page.PageLink}");
+            Assert.That(page.PageLink.Text, Is.EqualTo("Text Link"));
         }
 
         [Test]
         public void IsLoadedTest()
         {
-            Log.Info($"Element Under Test: {pageLink}");
+            Log.Info($"Element Under Test: {page.PageLink}");
             PageLink pageLinkLoaded;
-            Assert.DoesNotThrow(() => pageLinkLoaded = pageLink);
-            Assert.That(pageLink.IsLoaded(), Is.True);
+            Assert.DoesNotThrow(() => pageLinkLoaded = page.PageLink);
+            Assert.That(page.PageLink.IsLoaded(), Is.True);
         }
 
         [Test]
@@ -50,35 +43,37 @@ namespace Framework.UnitTests
         [TestCase(false)]
         public void IsVisibleTest(bool expand)
         {
-            Log.Info($"Element Under Test: {pageLink}");
-            ExpandDiv(expand, TextFieldDivButton, TextFieldDiv);
-            Assert.That(pageLink.IsVisible(), Is.EqualTo(expand));
+            Log.Info($"Element Under Test: {page.PageLink}");
+            page.ExpandDiv(DivSection.TestTextField, expand);
+            Assert.That(page.PageLink.IsVisible(), Is.EqualTo(expand));
         }
 
         [Test]
         public void HrefTest()
         {
-            Assert.That(pageLink.Href.Contains(PagelinkHref), Is.True);
+            Assert.That(page.PageLink.Href.Contains(TestHtmlPage.PagelinkHref), Is.True);
         }
 
         [Test]
         public void ClickToTest()
         {
-            Log.Info($"Element Under Test: {pageLink}");
+            Log.Info($"Element Under Test: {page.PageLink}");
             var href = $"{GetTestHtmlFolderPath()}/TestHtml/pagelink.html";
-            ExpandDiv(true, TextFieldDivButton, TextFieldDiv);
+            page.ExpandDiv(DivSection.TestTextField, true);
 
-            var pagelinkPage = pageLink.ClickTo<PagelinkPage>();
+            var pagelinkPage = page.PageLink.ClickTo<PagelinkPage>();
             Assert.That(pagelinkPage.Url.Contains(href), Is.True);
+            Assert.That(pagelinkPage.Title, Is.EqualTo("Web-Test-Framework: Pagelink Page"));
             Assert.That(pagelinkPage.SuccessText.IsVisible(), Is.True);
 
             pagelinkPage.ReturnLink.Click();
 
-            Log.Info($"Element Under Test: {imageLink}");
-            ExpandDiv(true, ImageDivButton, ImageDiv);
+            Log.Info($"Element Under Test: {page.ImageLink}");
+            page.ExpandDiv(DivSection.TestImage, true);
 
-            pagelinkPage = imageLink.ClickTo<PagelinkPage>();
+            pagelinkPage = page.ImageLink.ClickTo<PagelinkPage>();
             Assert.That(pagelinkPage.Url.Contains(href), Is.True);
+            Assert.That(pagelinkPage.Title, Is.EqualTo("Web-Test-Framework: Pagelink Page"));
             Assert.That(pagelinkPage.SuccessText.IsVisible(), Is.True);
 
             pagelinkPage.ReturnLink.Click();

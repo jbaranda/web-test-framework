@@ -1,7 +1,6 @@
 ﻿using Framework.Browser;
 using Framework.UnitTests.PageObjects;
 using NUnit.Framework;
-using OpenQA.Selenium;
 using System;
 using System.Linq;
 
@@ -13,24 +12,6 @@ namespace Framework.UnitTests
         
         protected BaseBrowser Browser { get; set; }
         protected TestHtmlPage page => new TestHtmlPage(Browser.Driver);
-
-        //Div Buttons Locators
-        protected readonly By NavMenuDivButton = By.Id("nav-menu-btn");
-        protected readonly By TextFieldDivButton = By.Id("text-field-btn");
-        protected readonly By TextInputDivButton = By.Id("text-input-btn");
-        protected readonly By SelectDivButton = By.Id("select-input-btn");
-        protected readonly By CheckboxDivButton = By.Id("checkbox-input-btn");
-        protected readonly By RadioDivButton = By.Id("radio-input-btn");
-        protected readonly By ImageDivButton = By.Id("img-btn");
-
-        //Collapsable Divs Locators
-        protected readonly By NavMenuDiv = By.Id("navDivId");
-        protected readonly By TextFieldDiv = By.Id("textDivContainer");
-        protected readonly By TextInputDiv = By.Id("textInputDivContainer");
-        protected readonly By SelectDiv = By.Id("selectDivContainer");
-        protected readonly By CheckboxDiv = By.Id("checkboxDivContainer");
-        protected readonly By RadioDiv = By.Id("radioDivContainer");
-        protected readonly By ImageDiv = By.Id("imgDivContainer");
 
         protected static string GetTestHtmlFolderPath()
         {
@@ -73,27 +54,6 @@ namespace Framework.UnitTests
             var warningCnt = $"WARNING={TestContext.CurrentContext.Result.WarningCount}";
 
             Log.Info($"FINISH: {TestContext.CurrentContext.Test.ClassName}: {passCnt},{failCnt},{inconclusiveCnt},{skippedCnt},{warningCnt}");
-        }
-
-        protected void ExpandDiv(bool expand, By expandButtonSelector, By divContainerSelector)
-        {
-            var button = Browser.Driver.FindElement(expandButtonSelector);
-            var div = Browser.Driver.FindElement(divContainerSelector);
-
-            if (!expand && div.Displayed)
-            {
-                button.Click();
-                Browser.DriverWait.Until(driver => div.GetAttribute("class").Equals("collapse"));
-                Browser.DriverWait.Until(driver => !div.Displayed);
-                return;
-            }
-
-            if (expand && !div.Displayed)
-            {
-                button.Click();
-                Browser.DriverWait.Until(driver => div.GetAttribute("class").Equals("collapse in"));
-                Browser.DriverWait.Until(driver => div.Displayed);
-            }
         }
     }
 }

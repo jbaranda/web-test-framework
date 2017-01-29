@@ -1,6 +1,6 @@
 ﻿using Framework.Elements;
+using Framework.UnitTests.PageObjects;
 using NUnit.Framework;
-using OpenQA.Selenium;
 
 namespace Framework.UnitTests
 {
@@ -8,60 +8,50 @@ namespace Framework.UnitTests
     [Parallelizable]
     public class ToggleInputTests : TestBase
     {
-        private readonly By _checkboxLocator = By.Id("checkboxId1");
-        private readonly By _disabledCheckboxLocator = By.Id("checkboxId3");
-        private readonly By _radioLocator = By.Id("radioId1");
-        private readonly By _disabledRadioLocator = By.Id("radioId3");
-
-        public ToggleInput checkbox => new ToggleInput(Browser.Driver, _checkboxLocator);
-        public ToggleInput disabledCheckbox => new ToggleInput(Browser.Driver, _disabledCheckboxLocator);
-        public ToggleInput radioButton => new ToggleInput(Browser.Driver, _radioLocator);
-        public ToggleInput disabledRadioButton => new ToggleInput(Browser.Driver, _disabledRadioLocator);
-
         [Test]
         public void NameTest()
         {
-            Log.Info($"Element Under Test: {checkbox}");
-            Assert.That(checkbox.Name, Is.EqualTo("checkboxName1"));
+            Log.Info($"Element Under Test: {page.Checkbox}");
+            Assert.That(page.Checkbox.Name, Is.EqualTo("checkboxName1"));
 
-            Log.Info($"Element Under Test: {radioButton}");
-            Assert.That(radioButton.Name, Is.EqualTo("optradio"));
+            Log.Info($"Element Under Test: {page.RadioButton}");
+            Assert.That(page.RadioButton.Name, Is.EqualTo("optradio"));
         }
 
         [Test]
         public void ValueTest()
         {
-            Log.Info($"Element Under Test: {checkbox}");
-            Assert.That(checkbox.Value, Is.Empty);
+            Log.Info($"Element Under Test: {page.Checkbox}");
+            Assert.That(page.Checkbox.Value, Is.Empty);
 
-            Log.Info($"Element Under Test: {radioButton}");
-            Assert.That(radioButton.Value, Is.EqualTo("on"));
+            Log.Info($"Element Under Test: {page.RadioButton}");
+            Assert.That(page.RadioButton.Value, Is.EqualTo("on"));
         }
 
         [Test]
         public void TextTest()
         {
-            Log.Info($"Element Under Test: {checkbox}");
-            Assert.That(checkbox.Text, Is.Empty);
+            Log.Info($"Element Under Test: {page.Checkbox}");
+            Assert.That(page.Checkbox.Text, Is.Empty);
 
-            Log.Info($"Element Under Test: {radioButton}");
-            Assert.That(radioButton.Text, Is.EqualTo("on"));
+            Log.Info($"Element Under Test: {page.RadioButton}");
+            Assert.That(page.RadioButton.Text, Is.EqualTo("on"));
         }
 
         [Test]
         public void IsLoadedTest()
         {
-            Log.Info($"Element Under Test: {checkbox}");
+            Log.Info($"Element Under Test: {page.Checkbox}");
 
             ToggleInput checkboxLoaded;
-            Assert.DoesNotThrow(() => checkboxLoaded = checkbox);
-            Assert.That(checkbox.IsLoaded(), Is.True);
+            Assert.DoesNotThrow(() => checkboxLoaded = page.Checkbox);
+            Assert.That(page.Checkbox.IsLoaded(), Is.True);
 
-            Log.Info($"Element Under Test: {radioButton}");
+            Log.Info($"Element Under Test: {page.RadioButton}");
 
             ToggleInput radioButtonLoaded;
-            Assert.DoesNotThrow(() => radioButtonLoaded = radioButton);
-            Assert.That(radioButton.IsLoaded(), Is.True);
+            Assert.DoesNotThrow(() => radioButtonLoaded = page.RadioButton);
+            Assert.That(page.RadioButton.IsLoaded(), Is.True);
         }
 
         [Test]
@@ -69,52 +59,52 @@ namespace Framework.UnitTests
         [TestCase(false)]
         public void IsVisibleTest(bool expand)
         {
-            Log.Info($"Element Under Test: {checkbox}");            
-            ExpandDiv(expand, CheckboxDivButton, CheckboxDiv);
-            Assert.That(checkbox.IsVisible(), Is.EqualTo(expand));
+            Log.Info($"Element Under Test: {page.Checkbox}");
+            page.ExpandDiv(DivSection.TestCheckboxInput, expand);
+            Assert.That(page.Checkbox.IsVisible(), Is.EqualTo(expand));
 
-            Log.Info($"Element Under Test: {radioButton}");
-            ExpandDiv(expand, RadioDivButton, RadioDiv);
-            Assert.That(radioButton.IsVisible(), Is.EqualTo(expand));
+            Log.Info($"Element Under Test: {page.RadioButton}");
+            page.ExpandDiv(DivSection.TestRadioInput, expand);
+            Assert.That(page.RadioButton.IsVisible(), Is.EqualTo(expand));
         }
 
         [Test]
         public void ToggleOnTest()
         {
-            Log.Info($"Element Under Test: {checkbox}");            
-            ExpandDiv(true, CheckboxDivButton, CheckboxDiv);
-            checkbox.ToggleOn();
-            Assert.That(checkbox.IsOn(), Is.True);
+            Log.Info($"Element Under Test: {page.Checkbox}");
+            page.ExpandDiv(DivSection.TestCheckboxInput, true);
+            page.Checkbox.ToggleOn();
+            Assert.That(page.Checkbox.IsOn(), Is.True);
 
-            Log.Info($"Element Under Test: {disabledCheckbox}");
-            disabledCheckbox.ToggleOn();
-            Assert.That(disabledCheckbox.IsOn(), Is.False);
+            Log.Info($"Element Under Test: {page.DisabledCheckbox}");
+            page.DisabledCheckbox.ToggleOn();
+            Assert.That(page.DisabledCheckbox.IsOn(), Is.False);
 
-            Log.Info($"Element Under Test: {radioButton}");
-            ExpandDiv(true, RadioDivButton, RadioDiv);
-            radioButton.ToggleOn();
-            Assert.That(radioButton.IsOn(), Is.True);
+            Log.Info($"Element Under Test: {page.RadioButton}");
+            page.ExpandDiv(DivSection.TestRadioInput, true);
+            page.RadioButton.ToggleOn();
+            Assert.That(page.RadioButton.IsOn(), Is.True);
      
-            Log.Info($"Element Under Test: {disabledRadioButton}");
-            disabledRadioButton.ToggleOn();
-            Assert.That(disabledRadioButton.IsOn(), Is.False);
+            Log.Info($"Element Under Test: {page.DisabledRadioButton}");
+            page.DisabledRadioButton.ToggleOn();
+            Assert.That(page.DisabledRadioButton.IsOn(), Is.False);
         }
 
         [Test]
         public void ToggleOffTest()
         {
-            Log.Info($"Element Under Test: {checkbox}");
-            ExpandDiv(true, CheckboxDivButton, CheckboxDiv);
-            checkbox.ToggleOn();
-            checkbox.ToggleOff();
+            Log.Info($"Element Under Test: {page.Checkbox}");
+            page.ExpandDiv(DivSection.TestCheckboxInput, true);
+            page.Checkbox.ToggleOn();
+            page.Checkbox.ToggleOff();
 
-            Assert.That(checkbox.IsOn(), Is.False);
+            Assert.That(page.Checkbox.IsOn(), Is.False);
 
-            Log.Info($"Element Under Test: {disabledCheckbox}");
-            disabledCheckbox.ToggleOn();
-            Assert.That(disabledCheckbox.IsOn(), Is.False);
-            disabledCheckbox.ToggleOff();
-            Assert.That(disabledCheckbox.IsOn(), Is.False);
+            Log.Info($"Element Under Test: {page.DisabledCheckbox}");
+            page.DisabledCheckbox.ToggleOn();
+            Assert.That(page.DisabledCheckbox.IsOn(), Is.False);
+            page.DisabledCheckbox.ToggleOff();
+            Assert.That(page.DisabledCheckbox.IsOn(), Is.False);
         }
     }
 }

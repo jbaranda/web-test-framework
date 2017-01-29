@@ -81,9 +81,11 @@
     <Compile Include="PageObjects\BasePage.cs" />
     <Compile Include="PageObjects\BaseTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\BasePageTests.cs" />
     <Compile Include="UnitTests\ImageTests.cs" />
     <Compile Include="UnitTests\NavigationMenuTests.cs" />
     <Compile Include="UnitTests\PageLinkTests.cs" />
+    <Compile Include="UnitTests\PageObjects\DivSection.cs" />
     <Compile Include="UnitTests\PageObjects\MainNavMenu.cs" />
     <Compile Include="UnitTests\PageObjects\MainNavSubMenu.cs" />
     <Compile Include="UnitTests\PageObjects\PagelinkPage.cs" />

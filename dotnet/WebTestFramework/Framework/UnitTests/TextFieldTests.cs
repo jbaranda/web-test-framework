@@ -1,4 +1,5 @@
 ﻿using Framework.Elements;
+using Framework.UnitTests.PageObjects;
 using NUnit.Framework;
 namespace Framework.UnitTests
 {
@@ -43,7 +44,7 @@ namespace Framework.UnitTests
         [TestCase(false)]
         public void IsVisibleTest(bool expand)
         {
-            page.ExpandDiv(expand, TextFieldDivButton, TextFieldDiv);
+            page.ExpandDiv(DivSection.TestTextField, expand);
             Assert.That(page.TextField.IsVisible(), Is.EqualTo(expand));
         }
     }

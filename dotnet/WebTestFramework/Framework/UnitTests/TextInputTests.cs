@@ -1,6 +1,6 @@
 ﻿using Framework.Elements;
+using Framework.UnitTests.PageObjects;
 using NUnit.Framework;
-using OpenQA.Selenium;
 
 namespace Framework.UnitTests
 {
@@ -8,33 +8,28 @@ namespace Framework.UnitTests
     [Parallelizable]
     public class TextInputTests : TestBase
     {
-        private readonly By _textInputLocator = By.Id("inputId");
-        private readonly By _textareaLocator = By.Id("textareaId");
-        public TextInput textInput => new TextInput(Browser.Driver, _textInputLocator);
-        public TextInput textArea => new TextInput(Browser.Driver, _textareaLocator);
-
         [Test]
         public void NameTest()
         {
-            Log.Info($"Element Under Test: {textInput}");
-            Assert.That(textInput.Name, Is.EqualTo("inputName"));
+            Log.Info($"Element Under Test: {page.TextInput}");
+            Assert.That(page.TextInput.Name, Is.EqualTo("inputName"));
 
-            Log.Info($"Element Under Test: {textArea}");
-            Assert.That(textArea.Name, Is.EqualTo("textareaName"));
+            Log.Info($"Element Under Test: {page.TextArea}");
+            Assert.That(page.TextArea.Name, Is.EqualTo("textareaName"));
         }
 
         [Test]
         public void IsLoadedTest()
         {
-            Log.Info($"Element Under Test: {textInput}");
+            Log.Info($"Element Under Test: {page.TextInput}");
             TextInput textInputLoaded;
-            Assert.DoesNotThrow(() => textInputLoaded = textInput);
-            Assert.That(textInput.IsLoaded(), Is.True);
+            Assert.DoesNotThrow(() => textInputLoaded = page.TextInput);
+            Assert.That(page.TextInput.IsLoaded(), Is.True);
 
-            Log.Info($"Element Under Test: {textArea}");
+            Log.Info($"Element Under Test: {page.TextArea}");
             TextInput _textAreaLoaded;
-            Assert.DoesNotThrow(() => _textAreaLoaded = textArea);
-            Assert.That(textArea.IsLoaded(), Is.True);
+            Assert.DoesNotThrow(() => _textAreaLoaded = page.TextArea);
+            Assert.That(page.TextArea.IsLoaded(), Is.True);
         }
 
         [Test]
@@ -42,45 +37,45 @@ namespace Framework.UnitTests
         [TestCase(false)]
         public void IsVisibleTest(bool expand)
         {
-            ExpandDiv(expand, TextInputDivButton, TextInputDiv);
-            Log.Info($"Element Under Test: {textInput}");
-            Assert.That(textInput.IsVisible(), Is.EqualTo(expand));
+            page.ExpandDiv(DivSection.TestTextInput, expand);
+            Log.Info($"Element Under Test: {page.TextInput}");
+            Assert.That(page.TextInput.IsVisible(), Is.EqualTo(expand));
 
-            Log.Info($"Element Under Test: {textArea}");
-            Assert.That(textArea.IsVisible(), Is.EqualTo(expand));
+            Log.Info($"Element Under Test: {page.TextArea}");
+            Assert.That(page.TextArea.IsVisible(), Is.EqualTo(expand));
         }
 
         [Test]
         public void EnterText()
         {
             var text = "test";
-            ExpandDiv(true, TextInputDivButton, TextInputDiv);
+            page.ExpandDiv(DivSection.TestTextInput, true);
 
-            Log.Info($"Element Under Test: {textInput}");
-            textInput.EnterText(text);
-            Assert.That(textInput.Text, Is.EqualTo(text));
-            Assert.That(textInput.Value, Is.EqualTo(text));
+            Log.Info($"Element Under Test: {page.TextInput}");
+            page.TextInput.EnterText(text);
+            Assert.That(page.TextInput.Text, Is.EqualTo(text));
+            Assert.That(page.TextInput.Value, Is.EqualTo(text));
 
-            Log.Info($"Element Under Test: {textArea}");
-            textArea.EnterText(text);
-            Assert.That(textArea.Text, Is.EqualTo(text));
-            Assert.That(textArea.Value, Is.EqualTo(text));
+            Log.Info($"Element Under Test: {page.TextArea}");
+            page.TextArea.EnterText(text);
+            Assert.That(page.TextArea.Text, Is.EqualTo(text));
+            Assert.That(page.TextArea.Value, Is.EqualTo(text));
         }
 
         [Test]
         public void ClearText()
         {
-            ExpandDiv(true, TextInputDivButton, TextInputDiv);
+            page.ExpandDiv(DivSection.TestTextInput, true);
 
-            Log.Info($"Element Under Test: {textInput}");
-            textInput.ClearText();
-            Assert.That(textInput.Text, Is.EqualTo(string.Empty));
-            Assert.That(textInput.Value, Is.EqualTo(string.Empty));
+            Log.Info($"Element Under Test: {page.TextInput}");
+            page.TextInput.ClearText();
+            Assert.That(page.TextInput.Text, Is.EqualTo(string.Empty));
+            Assert.That(page.TextInput.Value, Is.EqualTo(string.Empty));
 
-            Log.Info($"Element Under Test: {textArea}");
-            textArea.ClearText();
-            Assert.That(textArea.Text, Is.EqualTo(string.Empty));
-            Assert.That(textArea.Value, Is.EqualTo(string.Empty));
+            Log.Info($"Element Under Test: {page.TextArea}");
+            page.TextArea.ClearText();
+            Assert.That(page.TextArea.Text, Is.EqualTo(string.Empty));
+            Assert.That(page.TextArea.Value, Is.EqualTo(string.Empty));
         }
     }
 }
