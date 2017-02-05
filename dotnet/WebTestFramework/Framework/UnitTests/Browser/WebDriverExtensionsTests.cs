@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System;
 
-namespace Framework.UnitTests
+namespace Framework.UnitTests.Browser
 {
     [TestFixture]
     [Parallelizable]

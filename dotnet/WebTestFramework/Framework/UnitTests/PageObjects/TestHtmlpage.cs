@@ -20,6 +20,7 @@ namespace Framework.UnitTests.PageObjects
         private readonly By _tableDivButton = By.Id("table-btn");
         private readonly By _modalDivButton = By.Id("modal-btn");
         private readonly By _tabMenuDivButton = By.Id("tab-menu-btn");
+        private readonly By _browserConsoleDivButton = By.Id("browser-console-btn");
 
         //Collapsable Divs Locators
         private readonly By _navMenuDiv = By.Id("navDivId");
@@ -32,7 +33,7 @@ namespace Framework.UnitTests.PageObjects
         private readonly By _tableDiv = By.Id("tableDivContainer");
         private readonly By _modalDiv = By.Id("modalDivContainer");
         private readonly By _tabMenuDiv = By.Id("tabmenuNavDivContainer");
-
+        private readonly By _browserConsoleDiv = By.Id("browserConsoleDivContainer");
 
         //Elements
         public TextField TextField => new TextField(Browser, By.Id("textId"));
@@ -47,6 +48,9 @@ namespace Framework.UnitTests.PageObjects
         public Image Image => new Image(Browser, By.Id("imgId"));
         public PageLink PageLink => new PageLink(Browser, By.Id("textLinkId"));
         public Image ImageLink => new Image(Browser, By.Id("imgLinkId"));
+        public Button ConsoleInfoButton => new Button(Browser, By.Id("consoleInfoBtnId"));
+        public Button ConsoleWarnButton => new Button(Browser, By.Id("consoleWarnBtnId"));
+        public Button ConsoleErrorButton => new Button(Browser, By.Id("consoleErrorBtnId"));
 
         public TestHtmlPage(IWebDriver browser) : base(browser) { }
 
@@ -98,6 +102,10 @@ namespace Framework.UnitTests.PageObjects
                 case DivSection.TestTabMenuNav:
                     button = Browser.FindElement(_tabMenuDivButton);
                     div = Browser.FindElement(_tabMenuDiv);
+                    break;
+                case DivSection.TestBrowserConsole:
+                    button = Browser.FindElement(_browserConsoleDivButton);
+                    div = Browser.FindElement(_browserConsoleDiv);
                     break;
                 default:
                     var msg = $"{GetType().Name}: Unsupported DivSection={section} used for ExpandDiv";

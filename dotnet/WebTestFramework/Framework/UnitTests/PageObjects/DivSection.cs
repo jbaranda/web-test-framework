@@ -11,6 +11,7 @@
         TestImage,
         TestTable,
         TestModal,
-        TestTabMenuNav
+        TestTabMenuNav,
+        TestBrowserConsole
     }
 }

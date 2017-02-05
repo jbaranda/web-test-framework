@@ -1,7 +1,10 @@
-﻿using Framework.Constants;
+﻿using Framework.Browser;
+using Framework.Constants;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Framework.PageObjects
 {
@@ -9,10 +12,11 @@ namespace Framework.PageObjects
     {
         protected static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public IWebDriver Browser { get; set; }
-        public WebDriverWait BrowserWait { get; set; }
-        public string Title { get; set; }
-        public string Url { get; set; }
+        public IWebDriver Browser { get; private set; }
+        public WebDriverWait BrowserWait { get; private set; }
+        public string Title { get; private set; }
+        public string Url { get; private set; }
+        public List<LogEntry> BrowserLogs { get; private set; }
 
         protected BasePage(IWebDriver driver)
         {
@@ -29,6 +33,8 @@ namespace Framework.PageObjects
             }
 
             Log.Info($"{GetType().Name} has loaded successfully");
+
+            BrowserLogs = Browser.GetBrowserLogs().ToList();
         }
 
         public virtual bool IsLoaded()
