@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
 using System;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -288,6 +289,11 @@ namespace Framework.Browser
 
             var screenShotPath = stringBuilder.ToString();
             screenshot.SaveAsFile(screenShotPath, ImageFormat.Jpeg);
+        }
+
+        public static ReadOnlyCollection<LogEntry> GetBrowserLogs(this IWebDriver browser)
+        {
+            return browser.Manage().Logs.GetLog(LogType.Browser);
         }
     }
 }

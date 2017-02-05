@@ -21,30 +21,30 @@ namespace Framework.UnitTests
         }
 
         [OneTimeSetUp]
-        public void SetupBrowser()
+        public virtual void SetupBrowser()
         {
             Log.Info($"START: {TestContext.CurrentContext.Test.ClassName}");
             Log.Info($"EXECUTING: SetupBrowser(): {BrowserType.Chrome}");
-            Browser = new BaseBrowser(WebDriverFactory.GetBrowser(BrowserType.Chrome));
+            Browser = new BaseBrowser(WebDriverFactory.Factory().GetBrowser(BrowserType.Chrome, logLevel: WebDriverSettings.BrowserLogLevel));
             Browser.Driver.Navigate().GoToUrl($"{GetTestHtmlFolderPath()}/TestHtml/testpage.html");
             Log.Info($"Browser URL={Browser.Driver.Url}");
             page = new TestHtmlPage(Browser.Driver);
         }
 
         [SetUp]
-        public void LogTestStart()
+        public virtual void TestStart()
         {
             Log.Info($"START: {TestContext.CurrentContext.Test.Name}");
         }
 
         [TearDown]
-        public void LogTestFinish()
+        public virtual void TestFinish()
         {
             Log.Info($"FINISH: {TestContext.CurrentContext.Test.Name}: {TestContext.CurrentContext.Result.Outcome.Status}");
         }
 
         [OneTimeTearDown]
-        public void CloseBrowser()
+        public virtual void CloseBrowser()
         {
             Log.Info($"EXECUTING: CloseBrowser()");
             Browser.Driver.Quit();
