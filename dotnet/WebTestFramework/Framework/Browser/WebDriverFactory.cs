@@ -71,6 +71,8 @@ namespace Framework.Browser
             switch (browser)
             {
                 case BrowserType.Chrome:
+                    // Prevents "Chrome being controlled by automated test software" message from showing
+                    _chromeOpts.AddArgument("disable-infobars");
                     return new ChromeDriver(driverPath, _chromeOpts);
                 case BrowserType.Edge:                 
                     return new EdgeDriver(driverPath, _edgeOpts);

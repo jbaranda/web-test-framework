@@ -25,13 +25,15 @@ namespace Framework.Browser
 
         public static void ResizeBrowser(this IWebDriver browser, bool maximize = false, int x = 1280, int y = 1024)
         {
-            Log.Info($"{browser.GetType().Name}: ResizeBrowser(): maximize={maximize},{x},{y}");
+            var logMsg = $"{browser.GetType().Name}: ResizeBrowser(): maximize={maximize}";
             if (maximize)
             {
+                Log.Info(logMsg);
                 browser.Manage().Window.Maximize();
                 return;
             }
 
+            Log.Info($"{logMsg},{x},{y}");
             browser.Manage().Window.Size = new Size(x, y);
         }
 
