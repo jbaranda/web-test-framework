@@ -6,7 +6,6 @@ namespace Framework.Browser
     public class WebDriverSettings
     {
         public static string SeleniumGridServer => ConfigurationManager.AppSettings["SeleniumGridServer"];
-        public static int ImplicitWait => int.Parse(ConfigurationManager.AppSettings["ImplicitWait"]);
         public static int ExplicitWait => int.Parse(ConfigurationManager.AppSettings["ExplicitWait"]);
         public static LogLevel BrowserLogLevel => GetLogLevel(int.Parse(ConfigurationManager.AppSettings["BrowserLogLevel"]));
         public static string BrowserVersion => ConfigurationManager.AppSettings["BrowserVersion"];
