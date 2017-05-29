@@ -25,7 +25,6 @@ namespace Framework.Browser
         {
             _client = new RestClient();
             Driver = driver;
-            Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(WebDriverSettings.ImplicitWait));
             DriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(WebDriverSettings.ExplicitWait));
 
             _sessionId = ((RemoteWebDriver)Driver).SessionId != null ? ((RemoteWebDriver)Driver).SessionId.ToString() : string.Empty;
