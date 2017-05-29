@@ -15,8 +15,8 @@ namespace Framework.UnitTests.Browser
             var yHeight = 720;
 
             Browser.Driver.ResizeBrowser(x: xWidth, y: yHeight);
-            Assert.That(Browser.Driver.Manage().Window.Size.Width, Is.EqualTo(xWidth));
-            Assert.That(Browser.Driver.Manage().Window.Size.Height, Is.EqualTo(yHeight));
+            Assert.That(Browser.Driver.Manage().Window.Size.Width, Is.AtLeast(xWidth));
+            Assert.That(Browser.Driver.Manage().Window.Size.Height, Is.AtLeast(yHeight));
 
             Browser.Driver.ResizeBrowser(true);
             Assert.That(Browser.Driver.Manage().Window.Size.Width, Is.GreaterThan(xWidth));
