@@ -2,9 +2,9 @@
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,33 +16,33 @@ namespace Framework.Browser
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static T NavigateToUrl<T>(this IWebDriver browser, string path)
+        public static T NavigateToUrl<T>(this IWebDriver driver, string path)
         {
-            Log.Info($"{browser.GetType().Name}: NavigateToUrl(): {path}");
-            browser.Navigate().GoToUrl(path);
-            return (T)Activator.CreateInstance(typeof(T), browser);
+            Log.Info($"{driver.GetType().Name}: NavigateToUrl(): {path}");
+            driver.Navigate().GoToUrl(path);
+            return (T)Activator.CreateInstance(typeof(T), driver);
         }
 
-        public static void ResizeBrowser(this IWebDriver browser, bool maximize = false, int x = 1280, int y = 1024)
+        public static void ResizeBrowser(this IWebDriver driver, bool maximize = false, int x = 1280, int y = 1024)
         {
-            var logMsg = $"{browser.GetType().Name}: ResizeBrowser(): maximize={maximize}";
+            var logMsg = $"{driver.GetType().Name}: ResizeBrowser(): maximize={maximize}";
             if (maximize)
             {
                 Log.Info(logMsg);
-                browser.Manage().Window.Maximize();
+                driver.Manage().Window.Maximize();
                 return;
             }
 
             Log.Info($"{logMsg},{x},{y}");
-            browser.Manage().Window.Size = new Size(x, y);
+            driver.Manage().Window.Size = new Size(x, y);
         }
 
-        public static bool IsAlertPresent(this IWebDriver browser)
+        public static bool IsAlertPresent(this IWebDriver driver)
         {
-            Log.Info($"{browser.GetType().Name}: IsAlertPresent()");
+            Log.Info($"{driver.GetType().Name}: IsAlertPresent()");
             try
             {
-                browser.SwitchTo().Alert();
+                driver.SwitchTo().Alert();
                 Log.Info("Alert Found");
                 return true;
             }
@@ -53,12 +53,12 @@ namespace Framework.Browser
             }
         }
 
-        public static void AcceptAlert(this IWebDriver browser)
+        public static void AcceptAlert(this IWebDriver driver)
         {
-            Log.Info($"{browser.GetType().Name}: AcceptAlert()");
+            Log.Info($"{driver.GetType().Name}: AcceptAlert()");
             try
             {
-                browser.SwitchTo().Alert().Accept();
+                driver.SwitchTo().Alert().Accept();
             }
             catch (NoAlertPresentException)
             {
@@ -66,12 +66,12 @@ namespace Framework.Browser
             }
         }
 
-        public static void DismissAlert(this IWebDriver browser)
+        public static void DismissAlert(this IWebDriver driver)
         {
-            Log.Info($"{browser.GetType().Name}: DismissAlert()");
+            Log.Info($"{driver.GetType().Name}: DismissAlert()");
             try
             {
-                browser.SwitchTo().Alert().Dismiss();
+                driver.SwitchTo().Alert().Dismiss();
             }
             catch (NoAlertPresentException)
             {
@@ -79,12 +79,12 @@ namespace Framework.Browser
             }
         }
 
-        public static string GetAlertText(this IWebDriver browser)
+        public static string GetAlertText(this IWebDriver driver)
         {
-            Log.Info($"{browser.GetType().Name}: GetAlertText()");
+            Log.Info($"{driver.GetType().Name}: GetAlertText()");
             try
             {
-                var text = browser.SwitchTo().Alert().Text;
+                var text = driver.SwitchTo().Alert().Text;
                 Log.Info($"Alert text={text}");
                 return text;
             }
@@ -95,32 +95,32 @@ namespace Framework.Browser
             }
         }
 
-        private static bool ContainsCookies(IWebDriver browser)
+        private static bool ContainsCookies(IWebDriver driver)
         {
-            Log.Info($"{browser.GetType().Name}: ContainsCookies()");
-            if (!browser.Manage().Cookies.AllCookies.Any()) return false;
+            Log.Info($"{driver.GetType().Name}: ContainsCookies()");
+            if (!driver.Manage().Cookies.AllCookies.Any()) return false;
             return true;
         }
 
-        public static void AddCookie(this IWebDriver browser, string cookieName, string value)
+        public static void AddCookie(this IWebDriver driver, string cookieName, string value)
         {
-            Log.Info($"{browser.GetType().Name}: AddCookie(): {cookieName}={value}");
+            Log.Info($"{driver.GetType().Name}: AddCookie(): {cookieName}={value}");
 
-            if (browser.Manage().Cookies.GetCookieNamed(cookieName) != null)
+            if (driver.Manage().Cookies.GetCookieNamed(cookieName) != null)
             {
                 Log.Warn($"Cookie={cookieName} already exists in Browser");
                 return;
             }
 
-            browser.Manage().Cookies.AddCookie(new Cookie(cookieName, value));
+            driver.Manage().Cookies.AddCookie(new Cookie(cookieName, value));
         }
 
-        public static void ClearCookie(this IWebDriver browser, string cookieName)
+        public static void ClearCookie(this IWebDriver driver, string cookieName)
         {
-            Log.Info($"{browser.GetType().Name}: ClearCookie(): {cookieName}");
-            if (!ContainsCookies(browser)) return;
+            Log.Info($"{driver.GetType().Name}: ClearCookie(): {cookieName}");
+            if (!ContainsCookies(driver)) return;
 
-            var cookieJar = browser.Manage().Cookies;
+            var cookieJar = driver.Manage().Cookies;
             if (cookieJar.GetCookieNamed(cookieName) == null)
             {
                 Log.Warn($"Cookie={cookieName} NOT found in Browser");
@@ -130,58 +130,58 @@ namespace Framework.Browser
             cookieJar.DeleteCookieNamed(cookieName);
         }
 
-        public static void ClearCookies(this IWebDriver browser)
+        public static void ClearCookies(this IWebDriver driver)
         {
-            Log.Info($"{browser.GetType().Name}: ClearCookies()");
-            if (!ContainsCookies(browser)) return;
+            Log.Info($"{driver.GetType().Name}: ClearCookies()");
+            if (!ContainsCookies(driver)) return;
 
-            browser.Manage().Cookies.DeleteAllCookies();
+            driver.Manage().Cookies.DeleteAllCookies();
         }
 
-        public static string GetCookieValue(this IWebDriver browser, string cookieName)
+        public static string GetCookieValue(this IWebDriver driver, string cookieName)
         {
-            Log.Info($"{browser.GetType().Name}: GetCookieValue(): {cookieName}");
-            if (!ContainsCookies(browser))
+            Log.Info($"{driver.GetType().Name}: GetCookieValue(): {cookieName}");
+            if (!ContainsCookies(driver))
             {
                 var msg = "No Cookies were found in Browser";
                 Log.Error(msg);
                 throw new Exception(msg);
             }
 
-            if (browser.Manage().Cookies.GetCookieNamed(cookieName) == null)
+            if (driver.Manage().Cookies.GetCookieNamed(cookieName) == null)
             {
                 var msg = $"Cookie={cookieName} NOT found in Browser";
                 Log.Error(msg);
                 throw new Exception(msg);
             }
 
-            var cookieVal = browser.Manage().Cookies.GetCookieNamed(cookieName).Value;
+            var cookieVal = driver.Manage().Cookies.GetCookieNamed(cookieName).Value;
             Log.Info($"{cookieName}={cookieVal}");
             return cookieVal;
         }
 
-        public static void SwitchToFrameByName(this IWebDriver browser, string name)
+        public static void SwitchToFrameByName(this IWebDriver driver, string name)
         {
-            Log.Info($"{browser.GetType().Name}: SwitchToFrameByName(): {name}");
-            SwitchToFrame(browser, By.Name(name));
+            Log.Info($"{driver.GetType().Name}: SwitchToFrameByName(): {name}");
+            SwitchToFrame(driver, By.Name(name));
         }
 
-        public static void SwitchToFrameById(this IWebDriver browser, string id)
+        public static void SwitchToFrameById(this IWebDriver driver, string id)
         {
-            Log.Info($"{browser.GetType().Name}: SwitchToFrameById(): {id}");
-            SwitchToFrame(browser, By.Id(id));
+            Log.Info($"{driver.GetType().Name}: SwitchToFrameById(): {id}");
+            SwitchToFrame(driver, By.Id(id));
         }
 
-        public static void SwitchToFrameByClass(this IWebDriver browser, string className)
+        public static void SwitchToFrameByClass(this IWebDriver driver, string className)
         {
-            Log.Info($"{browser.GetType().Name}: SwitchToFrameByClass(): {className}");
-            SwitchToFrame(browser, By.ClassName(className));
+            Log.Info($"{driver.GetType().Name}: SwitchToFrameByClass(): {className}");
+            SwitchToFrame(driver, By.ClassName(className));
         }
 
-        private static void SwitchToFrame(IWebDriver browser, By frameSelector)
+        private static void SwitchToFrame(IWebDriver driver, By frameSelector)
         {
-            Log.Info($"{browser.GetType().Name}: SwicthToFrame(): {frameSelector}");
-            var frames = browser.FindElements(frameSelector);
+            Log.Info($"{driver.GetType().Name}: SwicthToFrame(): {frameSelector}");
+            var frames = driver.FindElements(frameSelector);
 
             if (frames.Count == 0)
             {
@@ -197,33 +197,33 @@ namespace Framework.Browser
             {
                 var frameToSelect = frames.First();
                 Log.Debug("Frame to Select: " + frameToSelect.GetAttribute("name"));
-                browser.SwitchTo().Frame(frameToSelect);
+                driver.SwitchTo().Frame(frameToSelect);
             }
         }
 
-        public static void SwitchToDefaultContent(this IWebDriver browser)
+        public static void SwitchToDefaultContent(this IWebDriver driver)
         {
-            Log.Debug($"{browser.GetType().Name}: SwitchToDefaultContent()");
-            browser.SwitchTo().DefaultContent();
+            Log.Debug($"{driver.GetType().Name}: SwitchToDefaultContent()");
+            driver.SwitchTo().DefaultContent();
         }
 
-        public static void MoveToElement(this IWebDriver browser, IWebElement webElement)
+        public static void MoveToElement(this IWebDriver driver, IWebElement webElement)
         {
-            Log.Debug($"{browser.GetType().Name}: MoveToElement(): {webElement.TagName}");
-            new Actions(browser).MoveToElement(webElement).Build().Perform();
+            Log.Debug($"{driver.GetType().Name}: MoveToElement(): {webElement.TagName}");
+            new Actions(driver).MoveToElement(webElement).Build().Perform();
         }
 
-        public static void DragAndDrop(this IWebDriver browser, IWebElement source, IWebElement target)
+        public static void DragAndDrop(this IWebDriver driver, IWebElement source, IWebElement target)
         {
-            Log.Debug($"{browser.GetType().Name}: DragAndDrop():{source.TagName},{target.TagName}");
-            new Actions(browser).DragAndDrop(source, target).Build().Perform();
+            Log.Debug($"{driver.GetType().Name}: DragAndDrop():{source.TagName},{target.TagName}");
+            new Actions(driver).DragAndDrop(source, target).Build().Perform();
         }
 
-        public static BrowserType GetBrowserType(this IWebDriver browser)
+        public static BrowserType GetBrowserType(this IWebDriver driver)
         {
-            Log.Info($"{browser.GetType().Name}: GetBrowserType()");
+            Log.Info($"{driver.GetType().Name}: GetBrowserType()");
 
-            var capabilities = ((RemoteWebDriver)browser).Capabilities;
+            var capabilities = ((RemoteWebDriver)driver).Capabilities;
             var browserName = Regex.Replace(capabilities.BrowserName.ToLower(), @"\s+", "");
 
             if (browserName.Equals("chrome"))
@@ -260,9 +260,9 @@ namespace Framework.Browser
             return BrowserType.Firefox;
         }
 
-        public static void TakeScreenshot(this IWebDriver browser, string screenshotFileName)
+        public static void TakeScreenshot(this IWebDriver driver, string screenshotFileName)
         {
-            Log.Info($"{browser.GetType().Name}: TakeScreenshot(): {screenshotFileName}");
+            Log.Info($"{driver.GetType().Name}: TakeScreenshot(): {screenshotFileName}");
             if (string.IsNullOrEmpty(screenshotFileName))
             {
                 var msg = "Cannot specify a Screenshot Filename that is NULL or empty";
@@ -272,7 +272,7 @@ namespace Framework.Browser
 
             var screenshotPath = Path.GetDirectoryName(new Uri(typeof(WebDriverExtensions).Assembly.CodeBase).LocalPath) + @"\Screenshots";
 
-            var camera = (ITakesScreenshot)browser;
+            var camera = (ITakesScreenshot)driver;
             var screenshot = camera.GetScreenshot();
 
             if (!Directory.Exists(screenshotPath))
@@ -290,12 +290,13 @@ namespace Framework.Browser
             }
 
             var screenShotPath = stringBuilder.ToString();
-            screenshot.SaveAsFile(screenShotPath, ImageFormat.Jpeg);
+            screenshot.SaveAsFile(screenShotPath, ScreenshotImageFormat.Jpeg);
         }
 
-        public static ReadOnlyCollection<LogEntry> GetBrowserLogs(this IWebDriver browser)
+        public static ReadOnlyCollection<LogEntry> GetBrowserLogs(this IWebDriver driver)
         {
-            return browser.Manage().Logs.GetLog(LogType.Browser);
+            return (driver.GetBrowserType() != BrowserType.Firefox)
+                ? driver.Manage().Logs.GetLog(LogType.Browser) : new List<LogEntry>().AsReadOnly();
         }
     }
 }

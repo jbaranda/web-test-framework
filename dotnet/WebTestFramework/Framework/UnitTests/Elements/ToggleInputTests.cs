@@ -1,6 +1,8 @@
-﻿using Framework.Elements;
+﻿using Framework.Browser;
+using Framework.Elements;
 using Framework.UnitTests.PageObjects;
 using NUnit.Framework;
+using OpenQA.Selenium;
 
 namespace Framework.UnitTests.Elements
 {
@@ -77,7 +79,11 @@ namespace Framework.UnitTests.Elements
             Assert.That(page.Checkbox.IsOn(), Is.True);
 
             Log.Info($"Element Under Test: {page.DisabledCheckbox}");
-            page.DisabledCheckbox.ToggleOn();
+            if (BrowserType == BrowserType.Firefox)
+                Assert.That(() => page.DisabledCheckbox.ToggleOn(), Throws.Exception.TypeOf<InvalidElementStateException>());
+            else
+                Assert.That(() => page.DisabledCheckbox.ToggleOn(), Throws.Nothing);
+
             Assert.That(page.DisabledCheckbox.IsOn(), Is.False);
 
             Log.Info($"Element Under Test: {page.RadioButton}");
@@ -86,7 +92,11 @@ namespace Framework.UnitTests.Elements
             Assert.That(page.RadioButton.IsOn(), Is.True);
      
             Log.Info($"Element Under Test: {page.DisabledRadioButton}");
-            page.DisabledRadioButton.ToggleOn();
+            if (BrowserType == BrowserType.Firefox)
+                Assert.That(() => page.DisabledRadioButton.ToggleOn(), Throws.Exception.TypeOf<InvalidElementStateException>());
+            else
+                Assert.That(() => page.DisabledRadioButton.ToggleOn(), Throws.Nothing);
+
             Assert.That(page.DisabledRadioButton.IsOn(), Is.False);
         }
 
@@ -101,9 +111,14 @@ namespace Framework.UnitTests.Elements
             Assert.That(page.Checkbox.IsOn(), Is.False);
 
             Log.Info($"Element Under Test: {page.DisabledCheckbox}");
-            page.DisabledCheckbox.ToggleOn();
+            if (BrowserType == BrowserType.Firefox)
+                Assert.That(() => page.DisabledCheckbox.ToggleOn(), Throws.Exception.TypeOf<InvalidElementStateException>());
+            else
+                Assert.That(() => page.DisabledCheckbox.ToggleOn(), Throws.Nothing);
+
             Assert.That(page.DisabledCheckbox.IsOn(), Is.False);
-            page.DisabledCheckbox.ToggleOff();
+
+            Assert.That(() => page.DisabledCheckbox.ToggleOff(), Throws.Nothing);
             Assert.That(page.DisabledCheckbox.IsOn(), Is.False);
         }
     }

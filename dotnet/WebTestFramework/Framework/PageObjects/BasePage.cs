@@ -18,12 +18,10 @@ namespace Framework.PageObjects
         public string Url { get; private set; }
         public List<LogEntry> BrowserLogs { get; private set; }
 
-        protected BasePage(IWebDriver driver)
+        protected BasePage(IWebDriver driver, WebDriverWait driverWait = null)
         {
             Browser = driver;
-            BrowserWait = new WebDriverWait(Browser, TimeSpan.FromSeconds(5));
-            Title = driver.Title;
-            Url = driver.Url;
+            BrowserWait = driverWait != null ? driverWait : WebDriverWaitFactory.Factory.GetWait(Browser, TimeSpan.FromSeconds(WebDriverSettings.ExplicitWait));
 
             if (!IsLoaded())
             {
@@ -34,20 +32,21 @@ namespace Framework.PageObjects
 
             Log.Info($"{GetType().Name} has loaded successfully");
 
+            Title = driver.Title;
+            Url = driver.Url;
             BrowserLogs = Browser.GetBrowserLogs().ToList();
         }
 
         public virtual bool IsLoaded()
         {
-            var readyState = ((IJavaScriptExecutor)Browser).ExecuteScript("return document.readyState");
-            Log.Debug($"{GetType().Name}: document.readyState={readyState}");
+            var isLoadedWait = WebDriverWaitFactory.Factory.GetWait(Browser, TimeSpan.FromSeconds(WebDriverSettings.ExplicitWait),
+                TimeSpan.FromSeconds(1), ignoreExceptions: new List<Type> { typeof(WebDriverTimeoutException) } );
 
-            if (readyState.Equals(DocumentReadyState.Complete))
-            {           
-                return true;
-            }
+            var isLoaded = isLoadedWait.Until(driver => ((IJavaScriptExecutor)driver)
+            .ExecuteScript("return document.readyState").Equals(DocumentReadyState.Complete));
 
-            return false;
+            Log.Debug($"{GetType().Name}: isLoaded={isLoaded}");
+            return isLoaded;
         }
 
         public override string ToString()

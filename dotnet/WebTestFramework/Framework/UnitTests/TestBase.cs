@@ -10,8 +10,15 @@ namespace Framework.UnitTests
     {
         protected static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         
+        protected BrowserType BrowserType => BrowserType.Firefox;
         protected BaseBrowser Browser { get; set; }
         protected TestHtmlPage page { get; set; }
+
+        protected string TestPageUrl => (BrowserType == BrowserType.Firefox ? "file:///" : string.Empty)
+                + $"{ GetTestHtmlFolderPath()}TestHtml/testpage.html";
+
+        protected string PageLinkPageUrl => (BrowserType == BrowserType.Firefox ? "file:///" : string.Empty)
+                + $"{ GetTestHtmlFolderPath()}TestHtml/pagelink.html";
 
         protected static string GetTestHtmlFolderPath()
         {
@@ -24,9 +31,9 @@ namespace Framework.UnitTests
         public virtual void SetupBrowser()
         {
             Log.Info($"START: {TestContext.CurrentContext.Test.ClassName}");
-            Log.Info($"EXECUTING: SetupBrowser(): {BrowserType.Chrome}");
-            Browser = new BaseBrowser(WebDriverFactory.Factory().GetBrowser(BrowserType.Chrome, logLevel: WebDriverSettings.BrowserLogLevel));
-            Browser.Driver.Navigate().GoToUrl($"{GetTestHtmlFolderPath()}/TestHtml/testpage.html");
+            Log.Info($"EXECUTING: SetupBrowser(): {BrowserType}");
+            Browser = new BaseBrowser(WebDriverFactory.Factory.GetBrowser(BrowserType, logLevel: WebDriverSettings.BrowserLogLevel));
+            Browser.Driver.Navigate().GoToUrl(TestPageUrl);
             Log.Info($"Browser URL={Browser.Driver.Url}");
             page = new TestHtmlPage(Browser.Driver);
         }
