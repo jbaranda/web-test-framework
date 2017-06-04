@@ -32,7 +32,7 @@ namespace Framework.UnitTests
         {
             Log.Info($"START: {TestContext.CurrentContext.Test.ClassName}");
             Log.Info($"EXECUTING: SetupBrowser(): {BrowserType}");
-            Browser = new BaseBrowser(WebDriverFactory.Factory.GetBrowser(BrowserType, logLevel: WebDriverSettings.BrowserLogLevel));
+            Browser = new BaseBrowser(WebDriverFactory.Factory.GetBrowser(BrowserType));
             Browser.Driver.Navigate().GoToUrl(TestPageUrl);
             Log.Info($"Browser URL={Browser.Driver.Url}");
             page = new TestHtmlPage(Browser.Driver);

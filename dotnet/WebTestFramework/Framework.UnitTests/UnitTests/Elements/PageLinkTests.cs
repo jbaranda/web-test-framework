@@ -51,7 +51,7 @@ namespace Framework.UnitTests.Elements
         [Test]
         public void HrefTest()
         {
-            Assert.That(page.PageLink.Href.Contains(TestHtmlPage.PagelinkHref), Is.True);
+            Assert.That(page.PageLink.Href.Contains(page.PagelinkHref), Is.True);
         }
 
         [Test]

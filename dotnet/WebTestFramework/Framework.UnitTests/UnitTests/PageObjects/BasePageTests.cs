@@ -21,7 +21,7 @@ namespace Framework.UnitTests.PageObjects
         [Test]
         public void TitleTest()
         {
-            Assert.That(page.Title, Is.EqualTo("Web-Test-Framework: Test HTML Page"));
+            Assert.That(page.Title, Is.EqualTo(page.PageTitle));
         }
 
         [Test]

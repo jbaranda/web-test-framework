@@ -76,7 +76,7 @@
     <Compile Include="UnitTests\PageObjects\NavigationMenuTests.cs" />
     <Compile Include="UnitTests\PageObjects\PagelinkPage.cs" />
     <Compile Include="UnitTests\PageObjects\TableTests.cs" />
-    <Compile Include="UnitTests\PageObjects\TestHtmlpage.cs" />
+    <Compile Include="UnitTests\PageObjects\TestHtmlPage.cs" />
     <Compile Include="UnitTests\PageObjects\TestTable.cs" />
     <Compile Include="UnitTests\TestBase.cs" />
   </ItemGroup>

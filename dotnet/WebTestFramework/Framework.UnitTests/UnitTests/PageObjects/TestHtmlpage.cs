@@ -7,7 +7,8 @@ namespace Framework.UnitTests.PageObjects
 {
     public class TestHtmlPage : BasePage
     {
-        public const string PagelinkHref = "pagelink.html";
+        public string PagelinkHref = "pagelink.html";
+        public string PageTitle = "Web-Test-Framework: Test HTML Page";
 
         //Div Buttons Locators
         private readonly By _navMenuDivButton = By.Id("nav-menu-btn");
@@ -53,6 +54,7 @@ namespace Framework.UnitTests.PageObjects
         public Button ConsoleErrorButton => new Button(Browser, By.Id("consoleErrorBtnId"));
 
         public TestHtmlPage(IWebDriver browser) : base(browser) { }
+        public TestHtmlPage(IWebDriver browser, bool trackBrowserLogs) : base(browser, trackBrowserLogs: trackBrowserLogs) { }
 
         public void ExpandDiv(DivSection section, bool expand)
         {

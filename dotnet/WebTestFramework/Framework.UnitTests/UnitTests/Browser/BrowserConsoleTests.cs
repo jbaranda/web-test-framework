@@ -48,7 +48,7 @@ namespace Framework.UnitTests.Browser
             Browser = new BaseBrowser(WebDriverFactory.Factory.GetBrowser(BrowserType, logLevel: level));
             Browser.Driver.Navigate().GoToUrl(TestPageUrl);
             Log.Info($"Browser URL={Browser.Driver.Url}");
-            page = new TestHtmlPage(Browser.Driver);
+            page = new TestHtmlPage(Browser.Driver, true);
         }
 
         [Test]

@@ -56,7 +56,7 @@ namespace Framework.UnitTests.PageObjects
 
             var pagelinkpage = _navMenu.NavigateTo<PagelinkPage>(MainNavSubMenu.Menu.SubItem2);
             Assert.That(pagelinkpage.Url.Contains(href), Is.True);
-            Assert.That(pagelinkpage.Title, Is.EqualTo("Web-Test-Framework: Pagelink Page"));
+            Assert.That(pagelinkpage.Title, Is.EqualTo(pagelinkpage.PageTitle));
             Assert.That(pagelinkpage.SuccessText.IsVisible(), Is.True);
 
             page = pagelinkpage.ReturnLink.ClickTo<TestHtmlPage>();
@@ -66,7 +66,7 @@ namespace Framework.UnitTests.PageObjects
             _navMenu.ExpandMenu(MainNavMenu.Menu.Item3, false);
             pagelinkpage = _subNavMenu.NavigateTo<PagelinkPage>(MainNavSubMenu.Menu.SubItem2);
             Assert.That(pagelinkpage.Url.Contains(href), Is.True);
-            Assert.That(pagelinkpage.Title, Is.EqualTo("Web-Test-Framework: Pagelink Page"));
+            Assert.That(pagelinkpage.Title, Is.EqualTo(pagelinkpage.PageTitle));
             Assert.That(pagelinkpage.SuccessText.IsVisible(), Is.True);
 
             page = pagelinkpage.ReturnLink.ClickTo<TestHtmlPage>();
