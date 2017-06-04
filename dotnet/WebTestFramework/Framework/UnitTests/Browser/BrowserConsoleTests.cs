@@ -45,8 +45,8 @@ namespace Framework.UnitTests.Browser
 
         private void SetupBrowserWithLoggingLevel(LogLevel level)
         {
-            Browser = new BaseBrowser(WebDriverFactory.Factory().GetBrowser(BrowserType.Chrome, logLevel: level));
-            Browser.Driver.Navigate().GoToUrl($"{GetTestHtmlFolderPath()}/TestHtml/testpage.html");
+            Browser = new BaseBrowser(WebDriverFactory.Factory.GetBrowser(BrowserType, logLevel: level));
+            Browser.Driver.Navigate().GoToUrl(TestPageUrl);
             Log.Info($"Browser URL={Browser.Driver.Url}");
             page = new TestHtmlPage(Browser.Driver);
         }

@@ -58,11 +58,10 @@ namespace Framework.UnitTests.Elements
         public void ClickToTest()
         {
             Log.Info($"Element Under Test: {page.PageLink}");
-            var href = $"{GetTestHtmlFolderPath()}/TestHtml/pagelink.html";
             page.ExpandDiv(DivSection.TestTextField, true);
 
             var pagelinkPage = page.PageLink.ClickTo<PagelinkPage>();
-            Assert.That(pagelinkPage.Url.Contains(href), Is.True);
+            Assert.That(pagelinkPage.Url.Contains(PageLinkPageUrl), Is.True);
             Assert.That(pagelinkPage.Title, Is.EqualTo("Web-Test-Framework: Pagelink Page"));
             Assert.That(pagelinkPage.SuccessText.IsVisible(), Is.True);
 
@@ -72,7 +71,7 @@ namespace Framework.UnitTests.Elements
             page.ExpandDiv(DivSection.TestImage, true);
 
             pagelinkPage = page.ImageLink.ClickTo<PagelinkPage>();
-            Assert.That(pagelinkPage.Url.Contains(href), Is.True);
+            Assert.That(pagelinkPage.Url.Contains(PageLinkPageUrl), Is.True);
             Assert.That(pagelinkPage.Title, Is.EqualTo("Web-Test-Framework: Pagelink Page"));
             Assert.That(pagelinkPage.SuccessText.IsVisible(), Is.True);
 

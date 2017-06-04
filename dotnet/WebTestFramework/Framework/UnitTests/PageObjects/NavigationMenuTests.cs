@@ -51,7 +51,7 @@ namespace Framework.UnitTests.PageObjects
         public void NavigateToTest()
         {
             Log.Info($"PageObject Under Test: {_navMenu}");
-            var href = $"{GetTestHtmlFolderPath()}/TestHtml/pagelink.html";
+            var href = $"{GetTestHtmlFolderPath()}TestHtml/pagelink.html";
             page.ExpandDiv(DivSection.TestNavMenu, true);
 
             var pagelinkpage = _navMenu.NavigateTo<PagelinkPage>(MainNavSubMenu.Menu.SubItem2);

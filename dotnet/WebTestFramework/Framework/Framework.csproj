@@ -73,6 +73,7 @@
     <Compile Include="Browser\WebDriverExtensions.cs" />
     <Compile Include="Browser\WebDriverFactory.cs" />
     <Compile Include="Browser\WebDriverSettings.cs" />
+    <Compile Include="Browser\WebDriverWaitFactory.cs" />
     <Compile Include="Constants\DocumentReadyState.cs" />
     <Compile Include="Elements\Button.cs" />
     <Compile Include="Elements\WebElementExtensions.cs" />

@@ -21,11 +21,11 @@ namespace Framework.Browser
         public WebDriverWait DriverWait { get; set; }
         public List<LogEntry> Logs => Driver.GetBrowserLogs().ToList();
 
-        public BaseBrowser(IWebDriver driver)
+        public BaseBrowser(IWebDriver driver, WebDriverWait driverWait = null)
         {
             _client = new RestClient();
             Driver = driver;
-            DriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(WebDriverSettings.ExplicitWait));
+            DriverWait = driverWait != null ? driverWait : WebDriverWaitFactory.Factory.GetWait(Driver, TimeSpan.FromSeconds(WebDriverSettings.ExplicitWait));
 
             _sessionId = ((RemoteWebDriver)Driver).SessionId != null ? ((RemoteWebDriver)Driver).SessionId.ToString() : string.Empty;
         }

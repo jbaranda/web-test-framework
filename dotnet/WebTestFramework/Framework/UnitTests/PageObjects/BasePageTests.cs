@@ -15,8 +15,7 @@ namespace Framework.UnitTests.PageObjects
         [Test]
         public void UrlTest()
         {
-            var href = $"{GetTestHtmlFolderPath()}/TestHtml/testpage.html";
-            Assert.That(page.Url.Contains(href), Is.True);
+            Assert.That(page.Url.Contains(TestPageUrl), Is.True);
         }
 
         [Test]
