@@ -5,12 +5,12 @@ namespace Framework.Browser
 {
     public class WebDriverSettings
     {
-        public static string SeleniumGridServer => ConfigurationManager.AppSettings["SeleniumGridServer"];
-        public static int ExplicitWait => int.Parse(ConfigurationManager.AppSettings["ExplicitWait"]);
-        public static LogLevel BrowserLogLevel => GetLogLevel(int.Parse(ConfigurationManager.AppSettings["BrowserLogLevel"]));
-        public static string BrowserVersion => ConfigurationManager.AppSettings["BrowserVersion"];
-        public static string OutlineColor => ConfigurationManager.AppSettings["OutlineColor"];
-        public static bool ApplyOutline => GetBoolValue("ApplyOutline");
+        public static string SeleniumGridServer { get; set; } = ConfigurationManager.AppSettings["SeleniumGridServer"];
+        public static int ExplicitWait { get; set; } = int.Parse(ConfigurationManager.AppSettings["ExplicitWait"]);
+        public static LogLevel BrowserLogLevel { get; set; } = GetLogLevel(int.Parse(ConfigurationManager.AppSettings["BrowserLogLevel"]));
+        public static string BrowserVersion { get; set; } = ConfigurationManager.AppSettings["BrowserVersion"];
+        public static string OutlineColor { get; set; } = ConfigurationManager.AppSettings["OutlineColor"];
+        public static bool ApplyOutline { get; set; } = GetBoolValue("ApplyOutline");
 
         private static bool GetBoolValue(string settingValue, bool defaultValue = false)
         {
