@@ -10,7 +10,7 @@ namespace Framework.UnitTests
     {
         protected static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         
-        protected BrowserType BrowserType => BrowserType.Firefox;
+        protected BrowserType BrowserType => BrowserType.Chrome;
         protected BaseBrowser Browser { get; set; }
         protected TestHtmlPage page { get; set; }
 
