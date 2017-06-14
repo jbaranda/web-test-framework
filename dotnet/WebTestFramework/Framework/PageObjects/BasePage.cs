@@ -18,7 +18,7 @@ namespace Framework.PageObjects
         public string Url { get; private set; }
         public List<LogEntry> BrowserLogs { get; private set; }
 
-        protected BasePage(IWebDriver driver, WebDriverWait driverWait = null)
+        protected BasePage(IWebDriver driver, WebDriverWait driverWait = null, bool trackBrowserLogs = false)
         {
             Browser = driver;
             BrowserWait = driverWait != null ? driverWait : WebDriverWaitFactory.Factory.GetWait(Browser, TimeSpan.FromSeconds(WebDriverSettings.ExplicitWait));
@@ -34,7 +34,9 @@ namespace Framework.PageObjects
 
             Title = driver.Title;
             Url = driver.Url;
-            BrowserLogs = Browser.GetBrowserLogs().ToList();
+            
+            if (trackBrowserLogs)
+                BrowserLogs = Browser.GetBrowserLogs().ToList();
         }
 
         public virtual bool IsLoaded()

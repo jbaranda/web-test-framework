@@ -26,6 +26,9 @@ namespace Framework.UnitTests.Browser
         [Test]
         public void CookiesTests()
         {
+            if (BrowserType == BrowserType.Phantomjs)
+                Assert.Inconclusive($"{BrowserType} v2.1.1 currently has a bug with Add Cookie and will be address in version: https://github.com/ariya/phantomjs/issues/14228");
+
             var cookie1 = "newCookie1";
             var value1 = "newValue1";
             var cookie2 = "newCookie2";

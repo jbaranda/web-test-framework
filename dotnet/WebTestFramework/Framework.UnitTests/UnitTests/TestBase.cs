@@ -2,6 +2,7 @@
 using Framework.UnitTests.PageObjects;
 using NUnit.Framework;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace Framework.UnitTests
@@ -14,17 +15,26 @@ namespace Framework.UnitTests
         protected BaseBrowser Browser { get; set; }
         protected TestHtmlPage page { get; set; }
 
-        protected string TestPageUrl => (BrowserType == BrowserType.Firefox ? "file:///" : string.Empty)
-                + $"{ GetTestHtmlFolderPath()}TestHtml/testpage.html";
+        protected string TestPageUrl => GetTestHtmlResourcePath(BrowserType, Constants.TestPageHtmlFile);
 
-        protected string PageLinkPageUrl => (BrowserType == BrowserType.Firefox ? "file:///" : string.Empty)
-                + $"{ GetTestHtmlFolderPath()}TestHtml/pagelink.html";
+        protected string PageLinkPageUrl => GetTestHtmlResourcePath(BrowserType, Constants.PageLinkHtmlFile);
 
-        protected static string GetTestHtmlFolderPath()
+        protected static string GetTestHtmlResourcePath(BrowserType browser, string resource)
         {
             var pathSegments = new Uri(typeof(TestBase).Assembly.CodeBase).Segments;
             var filteredSegments = pathSegments.Take(pathSegments.Length - 6).Aggregate((current, next) => current + next);
-            return filteredSegments.Substring(1, filteredSegments.Length - 1);
+            var folderPath = filteredSegments.Substring(1, filteredSegments.Length - 1);
+            if (browser == BrowserType.IE)
+            {
+                folderPath = folderPath.Replace('/', Path.DirectorySeparatorChar);
+                var resourcePath = Path.Combine("file://", folderPath, Constants.TestHtmlFolderName, resource);
+                return resourcePath;
+            }
+            else
+            {
+                var resourcePath = $"file:///{folderPath}{Constants.TestHtmlFolderName}{Path.AltDirectorySeparatorChar}{resource}";
+                return resourcePath;
+            }
         }
 
         [OneTimeSetUp]
@@ -32,7 +42,11 @@ namespace Framework.UnitTests
         {
             Log.Info($"START: {TestContext.CurrentContext.Test.ClassName}");
             Log.Info($"EXECUTING: SetupBrowser(): {BrowserType}");
-            Browser = new BaseBrowser(WebDriverFactory.Factory.GetBrowser(BrowserType, logLevel: WebDriverSettings.BrowserLogLevel));
+            Browser = new BaseBrowser(WebDriverFactory.Factory.GetBrowser(BrowserType));
+
+            if (BrowserType == BrowserType.Phantomjs)
+                Browser.Driver.Manage().Window.Maximize();
+
             Browser.Driver.Navigate().GoToUrl(TestPageUrl);
             Log.Info($"Browser URL={Browser.Driver.Url}");
             page = new TestHtmlPage(Browser.Driver);

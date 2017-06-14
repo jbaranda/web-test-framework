@@ -295,8 +295,7 @@ namespace Framework.Browser
 
         public static ReadOnlyCollection<LogEntry> GetBrowserLogs(this IWebDriver driver)
         {
-            return (driver.GetBrowserType() != BrowserType.Firefox)
-                ? driver.Manage().Logs.GetLog(LogType.Browser) : new List<LogEntry>().AsReadOnly();
+            return driver.Manage().Logs.GetLog(LogType.Browser);
         }
     }
 }

@@ -3,7 +3,7 @@ using System;
 
 namespace Framework.Interfaces
 {
-    interface IMenu
+    public interface IMenu
     {
         IWebElement GetItem(Enum item);
         void SelectItem(Enum itemToClick);

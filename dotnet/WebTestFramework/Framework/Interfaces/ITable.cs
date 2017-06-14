@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Framework.Interfaces
 {
-    interface ITable
+    public interface ITable
     {
         List<IWebElement> ColumnHeaders { get; }
         List<IWebElement> Rows { get; }

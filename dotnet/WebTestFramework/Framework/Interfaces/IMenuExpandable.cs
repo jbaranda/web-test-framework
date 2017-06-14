@@ -2,7 +2,7 @@
 
 namespace Framework.Interfaces
 {
-    interface IMenuExpandable : IMenu
+    public interface IMenuExpandable : IMenu
     {
         void ExpandMenu(Enum item, bool hover);
     }
