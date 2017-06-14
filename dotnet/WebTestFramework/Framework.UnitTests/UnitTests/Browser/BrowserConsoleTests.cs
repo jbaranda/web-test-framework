@@ -14,6 +14,8 @@ namespace Framework.UnitTests.Browser
         public override void SetupBrowser()
         {
             Log.Info($"START: {TestContext.CurrentContext.Test.ClassName}");
+            if (BrowserType == BrowserType.IE || BrowserType == BrowserType.Firefox)
+                Assert.Inconclusive($"Currently Browser Console Logs do not work as intended against {BrowserType} (Need to look into later)");
         }
 
         [SetUp]

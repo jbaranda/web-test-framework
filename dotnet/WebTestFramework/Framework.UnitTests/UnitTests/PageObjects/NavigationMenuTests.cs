@@ -51,11 +51,11 @@ namespace Framework.UnitTests.PageObjects
         public void NavigateToTest()
         {
             Log.Info($"PageObject Under Test: {_navMenu}");
-            var href = $"{GetTestHtmlFolderPath()}TestHtml/pagelink.html";
             page.ExpandDiv(DivSection.TestNavMenu, true);
 
             var pagelinkpage = _navMenu.NavigateTo<PagelinkPage>(MainNavSubMenu.Menu.SubItem2);
-            Assert.That(pagelinkpage.Url.Contains(href), Is.True);
+
+            Assert.That(pagelinkpage.Url.Contains(PageLinkPageUrl), Is.True);
             Assert.That(pagelinkpage.Title, Is.EqualTo(pagelinkpage.PageTitle));
             Assert.That(pagelinkpage.SuccessText.IsVisible(), Is.True);
 
@@ -65,7 +65,7 @@ namespace Framework.UnitTests.PageObjects
             page.ExpandDiv(DivSection.TestNavMenu, true);
             _navMenu.ExpandMenu(MainNavMenu.Menu.Item3, false);
             pagelinkpage = _subNavMenu.NavigateTo<PagelinkPage>(MainNavSubMenu.Menu.SubItem2);
-            Assert.That(pagelinkpage.Url.Contains(href), Is.True);
+            Assert.That(pagelinkpage.Url.Contains(PageLinkPageUrl), Is.True);
             Assert.That(pagelinkpage.Title, Is.EqualTo(pagelinkpage.PageTitle));
             Assert.That(pagelinkpage.SuccessText.IsVisible(), Is.True);
 
